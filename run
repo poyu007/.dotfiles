@@ -1,0 +1,12 @@
+#!/usr/bin/php
+<?php
+$path = chop(`pwd`);
+
+`ln -s $path/vimrc  ~/.vimrc`;
+`ln -s $path/bundles.vim   ~/.vim/bundles.vim`;
+`ln -s $path/tmux.conf ~/.tmux.conf`;
+`ln -s $path/zshrc ~/.zshrc`;
+
+
+
+?>

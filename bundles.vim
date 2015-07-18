@@ -1,7 +1,7 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " let Vundle manage Vundle
@@ -26,13 +26,17 @@ Bundle 'gmarik/vundle'
 " Fast navigation
 "-----------------
 "Bundle 'edsono/vim-matchit'
-"Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Lokaltog/vim-easymotion'
 
 "--------------
 " Fast editing
 "--------------
 Bundle 'tpope/vim-surround'
-Bundle 'scrooloose/nerdcommenter'  
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'Shougo/vimproc'
+Bundle 'Shougo/unite.vim'
+Bundle 'm2mdas/phpcomplete-extended'
+"Bundle 'Valloric/YouCompleteMe'
 "Bundle 'sjl/gundo.vim'
 "Bundle 'godlygeek/tabular'
 "Bundle 'nathanaelkane/vim-indent-guides'
@@ -41,17 +45,20 @@ Bundle 'scrooloose/nerdcommenter'
 " IDE features
 "--------------
 Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/Conque-Shell'
-Bundle 'carlobaldassi/ConqueTerm'
+"Bundle 'jistr/vim-nerdtree-tabs'
+"Bundle 'vim-scripts/Conque-Shell'
+"Bundle 'carlobaldassi/ConqueTerm'
 "Bundle 'humiaozuzu/TabBar'
 "Bundle 'majutsushi/tagbar'
 "Bundle 'mileszs/ack.vim'
 "Bundle 'kien/ctrlp.vim'
-"Bundle 'tpope/vim-fugitive'
 "Bundle 'Lokaltog/vim-powerline'
-"Bundle 'scrooloose/syntastic'
 "Bundle 'bronson/vim-trailing-whitespace'
 
+"--------------
+" Git tools
+"--------------
+Bundle 'tpope/vim-fugitive'
 "-------------
 " Other Utils
 "-------------
@@ -106,4 +113,10 @@ Bundle 'altercation/vim-colors-solarized'
 "Bundle 'chriskempson/vim-tomorrow-theme'
 "Bundle 'fisadev/fisa-vim-colorscheme'
 
+
+"--------------
+" Others
+"--------------
+"Bundle 'mileszs/ack.vim'
+"Bundle 'ggreer/the_silver_searcher'
 filetype plugin indent on     " required!
