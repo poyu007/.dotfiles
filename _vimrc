@@ -82,6 +82,22 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
+
+"--------------
+"" Color Schemes
+"--------------
+"Bundle 'tomasr/molokai'
+Bundle 'altercation/vim-colors-solarized'
+"Bundle 'rickharris/vim-blackboard'
+"Bundle 'rickharris/vim-monokai'
+"Bundle 'tpope/vim-vividchalk'
+"Bundle 'Lokaltog/vim-distinguished'
+"Bundle 'chriskempson/vim-tomorrow-theme'
+"Bundle 'fisadev/fisa-vim-colorscheme'
+
+"--------------
+"" Color Schemes
+"--------------
 Bundle 'L9'
 Bundle 'scrooloose/syntastic'
 Bundle 'FuzzyFinder'
@@ -106,17 +122,6 @@ Bundle 'tpope/vim-fugitive'
 filetype plugin indent on
 
 
-"--------------
-"" Color Schemes
-"--------------
-Bundle 'tomasr/molokai'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'rickharris/vim-blackboard'
-Bundle 'rickharris/vim-monokai'
-Bundle 'tpope/vim-vividchalk'
-Bundle 'Lokaltog/vim-distinguished'
-Bundle 'chriskempson/vim-tomorrow-theme'
-Bundle 'fisadev/fisa-vim-colorscheme'
 "
 "filetype plugin indent on
 "

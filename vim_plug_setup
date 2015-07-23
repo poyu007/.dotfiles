@@ -3,14 +3,16 @@
 $path = chop(`pwd`);
 
 `git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle/`;
-`tmux source-file ~/.tmux.conf`;
-
+`git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized/`;
 `ln -s $path/_vimrc  ~/.vimrc`;
-`ln -s $path/tmux.conf ~/.tmux.conf`;
-`ln -s $path/zshrc ~/.zshrc`;
-
 `mkdir ~/.vim/backups`;
 `mkdir ~/.vim/undo`;
+
+
+
+`ln -s $path/tmux.conf ~/.tmux.conf`;
+`tmux source-file ~/.tmux.conf`;
+
 #`ln -s $path/vimrc  ~/.vimrc`;
 #`ln -s $path/bundles.vim   ~/.vim/bundles.vim`;
 ?>
