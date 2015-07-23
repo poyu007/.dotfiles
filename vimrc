@@ -5,7 +5,6 @@ set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 
 " enable filetype dectection and ft specific plugin/indent
 " filetype plugin indent on
-
 " enable syntax hightlight and completion
 syntax on
 
@@ -28,7 +27,7 @@ set cursorline
 
 " search
 set incsearch
-"set highlight 	" conflict with highlight current line
+"set highlight  " conflict with highlight current line
 set ignorecase
 set smartcase
 
@@ -64,14 +63,6 @@ set shiftwidth=4    " indent width
 " set smarttab
 set expandtab       " expand tab to space
 
-" syntax support
-"autocmd Syntax javascript set syntax=jquery   " JQuery syntax support
-" js
-"let g:html_indent_inctags = "html,body,head,tbody"
-"let g:html_indent_script1 = "inc"
-"let g:html_indent_style1 = "inc"
-
-
 
 "-----------------
 " Plugin settings
@@ -97,14 +88,6 @@ let NERDCompactSexyComs=1
 "let mapleader = "," 
 
 
-" ConqueTerm  
-"let g:ConqueTerm_TERM = 'xterm'  
-noremap ,tb :ConqueTermVSplit bash<CR>  
-  
-vnoremap <C-c><C-c> :<C-u>call conque_term#send_selected(visualmode())<CR><Esc><C-w>p  
-noremap <C-c><C-c> V:call conque_term#send_selected(visualmode())<CR><Esc><C-w>p  
-
-
 " ascrooloose/syntastic  check 
 
 set statusline+=%#warningmsg#
@@ -115,3 +98,5 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+

@@ -9,3 +9,5 @@ http://www.yangzhiping.com/tech/iterm2.html
 1. switch = option + cammand + (lefe,right,up,down)
 
 
+###### vim
+alt+mouse = clipboard

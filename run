@@ -2,11 +2,15 @@
 <?php
 $path = chop(`pwd`);
 
-`ln -s $path/vimrc  ~/.vimrc`;
-`ln -s $path/bundles.vim   ~/.vim/bundles.vim`;
+`git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle/`;
+`tmux source-file ~/.tmux.conf`;
+
+`ln -s $path/_vimrc  ~/.vimrc`;
 `ln -s $path/tmux.conf ~/.tmux.conf`;
 `ln -s $path/zshrc ~/.zshrc`;
 
-
-
+`mkdir ~/.vim/backups`;
+`mkdir ~/.vim/undo`;
+#`ln -s $path/vimrc  ~/.vimrc`;
+#`ln -s $path/bundles.vim   ~/.vim/bundles.vim`;
 ?>
