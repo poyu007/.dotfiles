@@ -11,3 +11,15 @@ http://www.yangzhiping.com/tech/iterm2.html
 
 ###### vim
 alt+mouse = clipboard
+
+
+
+
+###### zsh
+1. 连续tab，给出所有的补全列表并直接进入到选择列表   cd <tab><tab> 
+2. 不记得命令的参数？没关系，输入命令直接tab给出就能给出参数说明，zsh后还用得着man函数吗？？？ tar – <tab> 
+3. kill进程，还需要先查进程吗？用zsh，只需tab就能把所有进程展示给你，很强大的一个功能。 kill  <tab> 
+4. 智能查找历史命令，在用<ctrl-p>或者方向上键查找历史命令时，zsh支持限制查找。比如，输入ls 然后再按方向上键,则只会查找用过的ls命令。 
+5. 多个终端会话共享历史记录。多个窗口，tab，tmux。所有的命令历史都可以共享。 
+6. zsh还支持后缀alias,即以什么命令打开特定的后缀名文件。例如alias -s js=mvim,输入hello.js，会以vim打开该文件,而不在需要vim hello.js。 
+7. 递归搜索，ll  **/*.log,find命令大部分场景被取代了。

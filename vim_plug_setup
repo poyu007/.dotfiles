@@ -2,17 +2,23 @@
 <?php
 $path = chop(`pwd`);
 
-`git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle/`;
-`git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized/`;
-`ln -s $path/_vimrc  ~/.vimrc`;
-`mkdir ~/.vim/backups`;
-`mkdir ~/.vim/undo`;
 
+$cmd_txt = <<<EOF
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle/
+git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized/
+ln  $path/vimrc  ~/.vimrc
+ln  $path/vimrc.local  ~/.vimrc.local
+mkdir ~/.vim/backups
+mkdir ~/.vim/undo
 
-
-`ln -s $path/tmux.conf ~/.tmux.conf`;
-`tmux source-file ~/.tmux.conf`;
-
-#`ln -s $path/vimrc  ~/.vimrc`;
-#`ln -s $path/bundles.vim   ~/.vim/bundles.vim`;
+EOF;
+$cmd_ary = explode("\n", $cmd_txt);
+print_r($cmd_ary);
+foreach($cmd_ary as $cmd){
+    if(!empty($cmd )){
+        system($cmd);
+    }
+}
+#`ln  $path/tmux.conf ~/.tmux.conf`;
+#`tmux source-file ~/.tmux.conf`;
 ?>
