@@ -10,6 +10,7 @@ ln  $path/vimrc  ~/.vimrc
 ln  $path/vimrc.local  ~/.vimrc.local
 mkdir ~/.vim/backups
 mkdir ~/.vim/undo
+ vim  -c "PluginInstall"
 
 EOF;
 $cmd_ary = explode("\n", $cmd_txt);
