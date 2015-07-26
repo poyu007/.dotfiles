@@ -3,8 +3,12 @@
 " default
 """""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
+
+" 编码
+set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 set history=400   " keep 400 lines of command line history
 
+syntax enable
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
@@ -19,6 +23,13 @@ set grepprg=ack\ --nogroup\ --column\ $*
 set grepformat=%f:%l:%c:%m
 " Don't use Ex mode, use Q for formatting
 map Q gq
+
+
+
+au WinLeave * set nocursorline nocursorcolumn
+au WinEnter * set cursorline cursorcolumn
+set cursorline
+set cursorcolumn
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -75,48 +86,75 @@ call vundle#rc()
 """"""""""""""""""""""""""""
 " Vundle
 """"""""""""""""""""""""""""
-filetype off
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
 " required!
 Bundle 'gmarik/vundle'
 
+
+"--------------
+"" Color Schemes
+"--------------
+"Bundle 'tomasr/molokai'
+Bundle 'altercation/vim-colors-solarized'
+"Bundle 'rickharris/vim-blackboard'
+"Bundle 'rickharris/vim-monokai'
+"Bundle 'tpope/vim-vividchalk'
+"Bundle 'Lokaltog/vim-distinguished'
+"Bundle 'chriskempson/vim-tomorrow-theme'
+"Bundle 'fisadev/fisa-vim-colorscheme'
+"
+"
+"--------------
+"" Color Schemes
+"--------------
 Bundle 'L9'
 Bundle 'scrooloose/syntastic'
 Bundle 'FuzzyFinder'
+
+
+
+"Bundle 'benmills/vimux'
+
+" CTRL+P 
 Bundle 'mru.vim'
 Bundle 'ctrlp.vim'
+
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'mattn/emmet-vim'
 Bundle 'xolox/vim-misc'
-Bundle 'xolox/vim-session'
-Bundle 'EasyMotion'
-Bundle 'FencView.vim'
-Bundle 'majutsushi/tagbar'
+" Bundle 'xolox/vim-session'
+" Bundle 'EasyMotion'
+
+
+
+"Bundle 'vim-scripts/taglist.vim'
+"http://qiita.com/wakuworks/items/5d05f178239a127af33d
+"Bundle 'vim-scripts/tagbar-phpctags'
+" jsctag  https://github.com/mozilla/doctorjs
 Bundle 'mihaifm/vimpanel'
+
+" new pane of things
+Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdtree'
-Bundle 'SirVer/ultisnips'
-Bundle 'Shougo/neocomplcache.vim'
+Bundle 'FencView.vim'
+
 Bundle 'The-NERD-Commenter'
 Bundle 'TaskList.vim'
-" Bundle 'UltiSnips'
+" Solve tab  problem  http://www.haodaima.net/art/2464523
 Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'tpope/vim-fugitive'
+
+" Bundle 'SirVer/ultisnips'
+Bundle 'Shougo/neocomplcache.vim'
+" snippt package 
+Bundle 'Shougo/neosnippet'
+Bundle 'Shougo/neosnippet-snippets'
+" html css snippt 
+Bundle 'mattn/emmet-vim'
+Bundle 'tpope/vim-surround'
+"Bundle 'godlygeek/tabular'
+"Bundle 'AutoClose'
+"Bundle 'ervandew/supertab'
 filetype plugin indent on
 
-"--------------
-" Color Schemes
-"--------------
-Bundle 'tomasr/molokai'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'rickharris/vim-blackboard'
-Bundle 'rickharris/vim-monokai'
-Bundle 'tpope/vim-vividchalk'
-Bundle 'Lokaltog/vim-distinguished'
-Bundle 'chriskempson/vim-tomorrow-theme'
-Bundle 'fisadev/fisa-vim-colorscheme'
 
-filetype plugin indent on
 

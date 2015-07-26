@@ -1,131 +1,9 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" default
-"""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible
-" 编码
-set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
-set history=400   " keep 400 lines of command line history
-syntax enable
-
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
-
-set backspace=indent,eol,start    " allow backspacing over everything in insert mode
-" 显示光标位置
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
-set grepprg=ack\ --nogroup\ --column\ $*
-set grepformat=%f:%l:%c:%m
-
-au WinLeave * set nocursorline nocursorcolumn
-au WinEnter * set cursorline cursorcolumn
-set cursorline
-set cursorcolumn
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-if &t_Co > 2 || has("gui_running")
-	syntax on
-	set hlsearch
-endif
-
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  " Also don't do it when the mark is in the first line, that is the default
-  " position when opening a file.
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-  augroup END
-else
-  set autoindent		" always set autoindenting on
-endif " has("autocmd")
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
-endif
-
 """"""""""""""""""""""""""""
 " Vundle
 """"""""""""""""""""""""""""
-filetype off
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" required!
-Bundle 'gmarik/vundle'
-
-
-"--------------
-"" Color Schemes
-"--------------
-"Bundle 'tomasr/molokai'
-Bundle 'altercation/vim-colors-solarized'
-"Bundle 'rickharris/vim-blackboard'
-"Bundle 'rickharris/vim-monokai'
-"Bundle 'tpope/vim-vividchalk'
-"Bundle 'Lokaltog/vim-distinguished'
-"Bundle 'chriskempson/vim-tomorrow-theme'
-"Bundle 'fisadev/fisa-vim-colorscheme'
-
-"--------------
-"" Color Schemes
-"--------------
-Bundle 'L9'
-Bundle 'scrooloose/syntastic'
-Bundle 'FuzzyFinder'
-Bundle 'mru.vim'
-Bundle 'ctrlp.vim'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'mattn/emmet-vim'
-Bundle 'xolox/vim-misc'
-Bundle 'xolox/vim-session'
-Bundle 'EasyMotion'
-Bundle 'FencView.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'mihaifm/vimpanel'
-Bundle 'scrooloose/nerdtree'
-"Bundle 'SirVer/ultisnips'
-Bundle 'Shougo/neocomplcache.vim'
-Bundle 'The-NERD-Commenter'
-Bundle 'TaskList.vim'
-" Solve tab  problem  http://www.haodaima.net/art/2464523
-" Bundle 'UltiSnips' 
-Bundle 'ntpeters/vim-better-whitespace'
-Bundle 'tpope/vim-fugitive'
-"Bundle 'trotter/autojump'
-Bundle 'ervandew/supertab'
-filetype plugin indent on
-
-
+source ~/.vim/bundles.vim 
 "
+
 "filetype plugin indent on
 "
 
@@ -144,13 +22,13 @@ endfunction
 set backupdir=~/.vim/backups
 set dir=~/.vim/backups
 set nobackup
-
 set undodir=~/.vim/undos
 set undofile
 
+set t_Co=256                                                      " Explicitly tell vim that the terminal has 256 colors "
 set laststatus=2   " Always show the statusline
 set ambiwidth=single
-
+set clipboard=unnamed
 set expandtab
 " 行间距
 set linespace=4
@@ -192,20 +70,12 @@ if has("gui_running") || has("gui_macvim")
 else
 "	colorscheme molokai
 "
-let g:solarized_termcolors=256
-	syntax enable
+    let g:solarized_termcolors=256
+    syntax enable
     set background=dark
     colorscheme solarized
-"let g:rehash256 = 1
-"let g:molokai_original = 1
-"let g:colors_name="molokai"
+"
 endif
-
-if MySys() == "mac"	
-	set guifont=Monaco:h13
-	set guifontwide=Source_Code_Pro_Medium:h13
-endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype and syntax
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -216,9 +86,7 @@ let g:javascript_enable_domhtmlcss=1
 " MacVim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-if has("gui_macvim")
-
-	" 取消默认的快捷键
+if has("gui_macvim")	" 取消默认的快捷键
 	let macvim_skip_cmd_opt_movement = 1
 	let macvim_hig_shift_movement = 1
 	" 设置背影透明度
@@ -230,6 +98,7 @@ endif
 
 " autocmd
 autocmd! bufwritepost .vimrc source ~/.vimrc
+autocmd! VimEnter *  :silent !~/.vim/phpctags -R *
 
 " filetype
 autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
@@ -271,8 +140,13 @@ let g:eighties_enabled = 1
 let g:eidthies_minimum_width = 80
 let g:eighties_extra_width = 0
 let g:eighties_compute = 1
-
+let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
+let NERDTreeWinSize=30
+let NERDTreeChDirMode=2
+let NERDChristmasTree=0
 " Syntastic
+
+
 let g:syntastic_javascript_checkers = ['jshint']
 let g:loaded_html_syntax_checked = 1
 let g:syntastic_auto_loc_list=0
@@ -295,17 +169,22 @@ nnoremap <leader>sd :DeleteSession
 nnoremap <leader>sc :CloseSession<cr>
 nnoremap <leader>sv :ViewSession<cr>
 
-" ctrl-p
+" ctrl-p MRU + ctrlp
 let g:ctrlp_working_path_mode=2 " .git/ .hg/ .svn/ .bzr/ _darcs/ or your own marker_dir/ marker_file
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_cmd = ':CtrlPMRU'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+let g:ctrlp_user_command = 'find %s -type f'  
 
 let g:Powerline_symbols = 'compatible'
 
 " UltiSnips
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsSnippetDirectories=["ultisnips"]
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
 
 " neocomplcache
 " Use neocomplcache
@@ -326,20 +205,50 @@ let g:html5_aria_attributes_complete = 0
 let g:aria_attributes_complete = 0
 
 
-" easymotion 
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_leader_key = ','
-"let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-map <Leader><leader>h <Plug>(easymotion-linebackward)
-" map <Leader><Leader>j <Plug>(easymotion-j)
-" map <Leader><Leader>k <Plug>(easymotion-k)
-map <Leader><leader>l <Plug>(easymotion-liGneforward)
-"" 重复上一次操作, 类似repeat插件, 很强大
-map <Leader><leader>. <Plug>(easymotion-repeat)
+" " easymotion 
+" let g:EasyMotion_smartcase = 1
+" let g:EasyMotion_leader_key = ','
+" let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+" map <Leader><leader>h <Plug>(easymotion-linebackward)
+" " map <Leader><Leader>j <Plug>(easymotion-j)
+" " map <Leader><Leader>k <Plug>(easymotion-k)
+" map <Leader><leader>l <Plug>(easymotion-liGneforward)
+"  重复上一次操作, 类似repeat插件, 很强大
+" map <Leader><leader>. <Plug>(easymotion-repeat)
+
+
 
 
 "xnoremap p pgvy
-let g:SuperTabDefaultCompletionType = "<c-n>"
+
+"  phpctags 
+"let g:tagbar_phpctags_bin='~/.vim/phpctags'
+ "
+
+" neosnippet Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+" Yank text to the OS X clipboard" 将文本复制到OS X剪贴板中
+noremap <leader>p :set paste<CR>:put *<CR>:set nopaste<CR>
+" noremap <leader>y "*y
+" noremap <leader>yy "*Y
+ 
+
 
 
 if filereadable(glob("~/.vimrc.local")) 
