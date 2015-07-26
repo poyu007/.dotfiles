@@ -14,7 +14,6 @@ mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undo
 curl -S http://vim-php.com/phpctags/install/phpctags.phar > ~/.vim/phpctags
 chmod +x ~/.vim/phpctags
-vim +PluginInstall +qall now
 EOF;
 $cmd_ary = explode("\n", $cmd_txt);
 print_r($cmd_ary);
@@ -27,4 +26,5 @@ foreach($cmd_ary as $cmd){
 #`tmux source-file ~/.tmux.conf`;
 #
 #brew install ctags
+# vim +PluginInstall +qall now
 ?>
