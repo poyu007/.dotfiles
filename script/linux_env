@@ -26,7 +26,7 @@ function e($p,$error=false){
 
 
 function get_vim_cmd($path){
-    $dir=_BASEDIR;
+    $dir='~/.vim';
     $c_dir='tmp_ctags';
 
 return <<<EOF
