@@ -10,13 +10,16 @@ function read_stdin()
     return $input;                  // return the text entered
 }
 
-function e($echo,$error=false){
+function e($p,$error=false){
+
+    $alert_col="\033[1;32m";
+    $normal_col= "\033[0;37m";
     if(!$error){
-        if(count($echo) > 0){
-            print_r($echo)."\n";
-        }else echo $echo."\n";
+        if(is_array($p)){
+            print_r($p)."\n";
+        }else echo $alert_col.'run-> '. $p."$normal_col \n";
     }else{
-        echo 'Message error '.$echo."\n";
+        echo 'Message error '.$p."\n";
         exit;
     }
 }
@@ -27,11 +30,11 @@ function get_vim_cmd($path){
 return <<<EOF
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle/
 git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized/
-mkdir $dir
 curl -S https://raw.githubusercontent.com/poyu007/.dotfiles/master/vimrc > $dir/vimrc
 curl -S https://raw.githubusercontent.com/poyu007/.dotfiles/master/bundles.vim > $dir/bundles.vim
 brew install ctags-exuberant
-mv $path/.vimrc $path/.vimrc_oldversion
+mv $path/.vimrc $path/.vimrc__old
+mv $path/bundles.vim $path/bundles
 ln -s $dir/vimrc  $path/.vimrc
 ln -s $dir/bundles.vim  ~/.vim/bundles.vim
 mkdir -p ~/.vim/backups
@@ -42,18 +45,18 @@ EOF;
 }
 
 
-function run_cmds($cmd){
-    $cmd_ary = explode("\n", $cmd_txt);
+function run_cmds($cmds){
+    $cmd_ary = explode("\n", $cmds);
     foreach($cmd_ary as $cmd){
         if(!empty($cmd )){
             e($cmd);
-            //system($cmd);
+            system($cmd);
         }
     }
 }
 
 
-define('_BASEDIR',$_ENV['HOME'].'/.vim/');
+define('_BASEDIR',$_ENV['HOME'].'/.vim');
 
 e("Process vim setup  ! [y/n] !");
 $yorn = read_stdin();
