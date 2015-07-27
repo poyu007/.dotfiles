@@ -39,7 +39,7 @@ ln -s $dir/vimrc  $path/.vimrc
 ln -s $dir/bundles.vim  ~/.vim/bundles.vim
 mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undo
-curl -S http://vim-php.com/phpctags/install/phpctags.phar > ~/.vim/phpctags
+curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > ~/.vim/phpctags
 chmod +x ~/.vim/phpctags
 EOF;
 }
