@@ -35,7 +35,7 @@ curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/bundles.vim > 
 mkdir -p $dir/tmp/
 curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/ctags-5.8.tar.gz  > $dir/tmp/ctags-5.8.gar.gz
 cd $dir/tmp/;tar -xvf tags-5.8.gar.gz;
-cd $dir/tmp/ctags-5.8/;./configure;make;sudo mv ctags /user/bin/ctags
+cd $dir/tmp/ctags-5.8/;./configure;make;sudo mv ctags /usr/bin/ctags
 rm $dir/tmp/ctags-5.8.gar.gz
 mv $path/.vimrc $path/.vimrc__old
 mv $path/bundles.vim $path/bundles
