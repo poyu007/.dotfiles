@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/macbook/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -127,7 +127,7 @@ zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;
 ######## zsh UI 
 #
 #
-PROMPT='%{${fg_bold[white]}%}%n%{$reset_color%}%{${fg[white]}%}@%m%{$reset_color%} $(git_prompt_info)%(?,,%{${fg_bold[white]}%}[%?]%{$reset_color%} )%{$fg[yellow]%}%#%{$reset_color%} '
+PROMPT='%{${fg_bold[white]}%}%n%{$reset_color%}%{${fg[white]}%}@% heisoo%{$reset_color%} $(git_prompt_info)%(?,,%{${fg_bold[white]}%}[%?]%{$reset_color%} )%{$fg[yellow]%}%#%{$reset_color%} '
 
 RPROMPT='%{$fg[green]%}%~%{$reset_color%}'
 

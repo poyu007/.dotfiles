@@ -100,7 +100,7 @@ function run_cmds($cmds){
 }
 
 define('_HOME',chop(system('echo $HOME')));
-define('INST_SHELL',device_test());
+define('INST_SHELL',get_inst_shell());
 e("Process vim setup  ! [y/n] !");
 $yorn = read_stdin();
 if($yorn == 'y'){
