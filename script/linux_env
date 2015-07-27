@@ -27,16 +27,19 @@ function e($p,$error=false){
 
 function get_vim_cmd($path){
     $dir=_BASEDIR;
+    $c_dir='tmp_ctags';
+
 return <<<EOF
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle/
 git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized/
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/vimrc > $dir/vimrc
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/bundles.vim > $dir/bundles.vim
-mkdir -p $dir/tmp/
-curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/ctags-5.8.tar.gz  > $dir/tmp/ctags-5.8.gar.gz
-cd $dir/tmp/;tar -xvf tags-5.8.gar.gz;
-cd $dir/tmp/ctags-5.8/;./configure;make;sudo mv ctags /usr/bin/ctags
-rm $dir/tmp/ctags-5.8.gar.gz
+mkdir -p $dir/tmp_ctags/
+mkdir -p /usr/local/bin/
+curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/ctags-5.8.tar.gz  > $dir/$c_dir/ctags-5.8.gar.gz
+cd $dir/$c_dir/;tar -xvf ctags-5.8.gar.gz
+cd $dir/$c_dir/ctags-5.8/;./configure;make;sudo mv ctags /usr/local/bin/ctags
+rm -rf $dir/$c_dir/
 mv $path/.vimrc $path/.vimrc__old
 mv $path/bundles.vim $path/bundles
 ln -s $dir/vimrc  $path/.vimrc
