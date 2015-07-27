@@ -38,9 +38,7 @@ curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/bundles.vim > 
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/bundles.vim > $dir/tmux.conf
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/zshrc > $dir/zshrc
 mv ~/.vimrc ~/.vimrc__old
-mv ~/bundles.vim ~/bundles.vim__old
 ln -s $dir/vimrc  ~/.vimrc
-ln -s $dir/bundles.vim ~/.bundles.vim
 mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undo
 curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > ~/.vim/phpctags
