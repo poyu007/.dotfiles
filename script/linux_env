@@ -34,16 +34,19 @@ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle/
 git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized/
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/vimrc > $dir/vimrc
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/bundles.vim > $dir/bundles.vim
+curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/bundles.vim > $dir/tmux.conf
+curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/zshrc > $dir/zshrc
 mkdir -p $dir/tmp_ctags/
 mkdir -p /usr/local/bin/
 curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/ctags-5.8.tar.gz  > $dir/$c_dir/ctags-5.8.gar.gz
 cd $dir/$c_dir/;tar -xvf ctags-5.8.gar.gz
-cd $dir/$c_dir/ctags-5.8/;./configure;make;sudo mv ctags /usr/local/bin/ctags
+cd $dir/$c_dir/ctags-5.8/;./configure;make
+mv sudo $dir/ctags /usr/local/bin/ctags
 rm -rf $dir/$c_dir/
 mv $path/.vimrc $path/.vimrc__old
-mv $path/bundles.vim $path/bundles
-ln -s $dir/vimrc  $path/.vimrc
-ln -s $dir/bundles.vim  ~/.vim/bundles.vim
+mv $path/bundles.vim $path/bundles.vim__old
+ln -s $dir/vimrc  ~/.vimrc
+ln -s $dir/bundles.vim ~/.bundles.vim
 mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undo
 curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > ~/.vim/phpctags
@@ -51,6 +54,24 @@ chmod +x ~/.vim/phpctags
 EOF;
 }
 
+function get_zsh_cmd(){
+    $path = $_ENV['HOME'].'/tmp_shell';
+    $home = $_ENV['HOME'];
+
+    return <<<EOF
+mkdir -p $path
+curl -S http://www.zsh.org/pub/
+curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/zsh-5.0.8.tar.bz2 >  $path/zsh-5.0.8.tar.bz2
+cd $path;tar --strip-components=1 -xvf zsh-5.0.8.tar.bz2; ./configure --prefix=/usr --bindir=/bin --sysconfdir=/etc/zsh --enable-etcdir=/etc/zsh
+cd $path;make;makeinfo  Doc/zsh.texi --plaintext -o Doc/zsh.txt;makeinfo  Doc/zsh.texi --html -o Doc/html;makeinfo  Doc/zsh.texi --html --no-split --no-headers -o Doc/zsh.html
+cd $path;git clone git://github.com/joelthelion/autojump.git
+cd $path/autojump;chmod 755 install.py; /install.py
+curl -L   https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+mv ~/.zshrc ~/.zshrc__old
+ln -s $home/.vim/zshrc ~/.zshrc;
+rm -rf $path;
+EOF;
+}
 
 function run_cmds($cmds){
     $cmd_ary = explode("\n", $cmds);
@@ -71,9 +92,22 @@ if($yorn == 'y'){
     $cmds = get_vim_cmd($_ENV['HOME']);
     run_cmds($cmds);
 }
-#`ln  $path/tmux.conf ~/.tmux.conf`;
-#`tmux source-file ~/.tmux.conf`;
+
+e("Process zsh jump setup   ! [y/n] !");
+$yorn = read_stdin();
+if($yorn == 'y'){
+    $cmds = get_zsh_cmd($_ENV['HOME']);
+    run_cmds($cmds);
+}
+
+e("Change your shell to zsh  ! [y/n] !");
+$yorn = read_stdin();
+if($yorn == 'y'){
+    system('chsh -s /bin/zsh;source ~/.zshrc');
+}
 #
-#brew install ctags
-# vim +PluginInstall +qall now
+# ln -s $dir/tmux.conf ~/.tmux.conf`;
+
+# #brew install ctags # vim +PluginInstall +qall now
+#
 ?>
