@@ -47,17 +47,18 @@ curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > ~/.vim/phpcta
 chmod +x ~/.vim/phpctags
 EOF;
 }
-function device_test(){
+function get_inst_shell(){
     $cmd="whereis apt-get";
     $cmd_out = chop(`$cmd`);
     if(strlen($cmd_out) > strlen('apt-get:')){
-        define('INST_SHELL','apt-get');
+        $shell = 'apt-get';
     }
     $cmd="whereis brew";
     $cmd_out = chop(`$cmd`);
     if(strlen($cmd_out) > strlen('brew:')){
-        define('INST_SHELL','brew');
+        $shell = 'brew';
     }
+    return $shell;
 }
 
 function inst_ctag(){
@@ -84,8 +85,6 @@ cd $path;make;makeinfo  Doc/zsh.texi --plaintext -o Doc/zsh.txt;makeinfo  Doc/zs
 cd $path;git clone git://github.com/joelthelion/autojump.git
 cd $path/autojump;chmod 755 install.py; /install.py
 curl -L   https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-mv ~/.zshrc ~/.zshrc__old
-ln -s $home/.vim/zshrc ~/.zshrc;
 rm -rf $path;
 EOF;
 }
@@ -100,14 +99,14 @@ function run_cmds($cmds){
     }
 }
 
-
-inst_ctag();
 define('_HOME',chop(system('echo $HOME')));
+define('INST_SHELL',device_test());
 e("Process vim setup  ! [y/n] !");
 $yorn = read_stdin();
 if($yorn == 'y'){
     $cmds = get_vim_cmd();
     run_cmds($cmds);
+    inst_ctag();
 }
 
 e("Process zsh jump setup   ! [y/n] !");
@@ -117,10 +116,18 @@ if($yorn == 'y'){
         $cmds = get_zsh_cmd($_ENV['HOME']);
         run_cmds($cmds);
     }elseif(INST_SHELL == 'apt-get'){
-        system("sudo apt-get install zsh git-core");
-        system("curl -L# http://install.ohmyz.sh > ~/.vim/install.ohmyz.sh");
-        system("~/.vim/install.ohmyz.sh"); 
+        $cmd ="sudo apt-get install zsh git-core";
+        e($cmd);
+        system($cmd);
+        $cmd= "curl -L# http://install.ohmyz.sh > ~/.vim/install.ohmyz.sh;sh ~/.vim/install.ohmyz.sh"; 
+        e($cmd);
+        system($cmd);
     }
+
+    $cmd = "mv ~/.zshrc ~/.zshrc__old;ln -s "._HOME."/.vim/zshrc ~/.zshrc";
+    e($cmd);
+    system($cmd);
+
 }
 
 e("Change your shell to zsh  ! [y/n] !");
