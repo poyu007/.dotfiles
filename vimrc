@@ -98,7 +98,7 @@ endif
 
 " autocmd
 autocmd! bufwritepost .vimrc source ~/.vimrc
-autocmd! VimEnter *  :silent !~/.vim/phpctags -R *
+" autocmd! VimEnter *  :silent !~/.vim/phpctags -R *
 
 " filetype
 autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
@@ -221,10 +221,9 @@ let g:aria_attributes_complete = 0
 
 "xnoremap p pgvy
 
-"  phpctags 
-"let g:tagbar_phpctags_bin='~/.vim/phpctags'
- "
-
+"phpctags 
+let g:tagbar_phpctags_bin='~/.vim/phpctags'
+let g:tagbar_phpctags_memory_limit = '512M' 
 " neosnippet Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)

@@ -128,12 +128,12 @@ Bundle 'xolox/vim-misc'
 
 "Bundle 'vim-scripts/taglist.vim'
 "http://qiita.com/wakuworks/items/5d05f178239a127af33d
-"Bundle 'vim-scripts/tagbar-phpctags'
 " jsctag  https://github.com/mozilla/doctorjs
 Bundle 'mihaifm/vimpanel'
 
 " new pane of things
 Bundle 'majutsushi/tagbar'
+Bundle 'vim-scripts/tagbar-phpctags'
 Bundle 'scrooloose/nerdtree'
 Bundle 'FencView.vim'
 
