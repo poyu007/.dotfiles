@@ -39,11 +39,6 @@ curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/bundles.vim > 
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/zshrc > $dir/zshrc
 mkdir -p $dir/tmp_ctags/
 mkdir -p /usr/local/bin/
-curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/ctags-5.8.tar.gz  > $dir/$c_dir/ctags-5.8.gar.gz
-cd $dir/$c_dir/;tar -xvf ctags-5.8.gar.gz
-cd $dir/$c_dir/ctags-5.8/;./configure;make
-mv sudo $dir/ctags /usr/local/bin/ctags
-rm -rf $dir/$c_dir/
 mv ~/.vimrc ~/.vimrc__old
 mv ~/bundles.vim ~/bundles.vim__old
 ln -s $dir/vimrc  ~/.vimrc
@@ -53,6 +48,15 @@ mkdir -p ~/.vim/undo
 curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > ~/.vim/phpctags
 chmod +x ~/.vim/phpctags
 EOF;
+}
+
+function inst_ctag(){
+    $cmd_out = chop(`whereis apt-get`);
+    if(!empty($cmd_out))  system('sudo apt-get install exberant-ctags');
+    $cmd_out = chop(`whereis brew`);
+    if(!empty($cmd_out))  system('brew install ctags-exuberant');
+
+
 }
 function get_zsh_cmd(){
     $path =_HOME.'/tmp_shell';
@@ -88,6 +92,7 @@ $yorn = read_stdin();
 if($yorn == 'y'){
     $cmds = get_vim_cmd();
     run_cmds($cmds);
+    inst_ctag();
 }
 
 e("Process zsh jump setup   ! [y/n] !");
