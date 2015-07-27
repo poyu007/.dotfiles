@@ -47,18 +47,26 @@ curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > ~/.vim/phpcta
 chmod +x ~/.vim/phpctags
 EOF;
 }
-
-function inst_ctag(){
-
+function device_test(){
     $cmd="whereis apt-get";
     $cmd_out = chop(`$cmd`);
     if(strlen($cmd_out) > strlen('apt-get:')){
-        e($cmd);
-        system('sudo apt-get install exuberant-ctags');
+        define('INST_SHELL','apt-get');
     }
     $cmd="whereis brew";
     $cmd_out = chop(`$cmd`);
     if(strlen($cmd_out) > strlen('brew:')){
+        define('INST_SHELL','brew');
+    }
+}
+
+function inst_ctag(){
+
+    if(INST_SHELL == 'apt-get'){
+        e($cmd);
+        system('sudo apt-get install exuberant-ctags');
+    }
+    if(INST_SHELL == 'brew'){
         e($cmd);
         system('brew install ctags-exuberant');
     }
@@ -93,9 +101,7 @@ function run_cmds($cmds){
 }
 
 
-
 inst_ctag();
-exit;
 define('_HOME',chop(system('echo $HOME')));
 e("Process vim setup  ! [y/n] !");
 $yorn = read_stdin();
@@ -107,8 +113,14 @@ if($yorn == 'y'){
 e("Process zsh jump setup   ! [y/n] !");
 $yorn = read_stdin();
 if($yorn == 'y'){
-    $cmds = get_zsh_cmd($_ENV['HOME']);
-    run_cmds($cmds);
+    if(INST_SHELL == 'brew'){
+        $cmds = get_zsh_cmd($_ENV['HOME']);
+        run_cmds($cmds);
+    }elseif(INST_SHELL == 'apt-get'){
+        system("sudo apt-get install zsh git-core");
+        system("curl -L# http://install.ohmyz.sh > ~/.vim/install.ohmyz.sh");
+        system("~/.vim/install.ohmyz.sh"); 
+    }
 }
 
 e("Change your shell to zsh  ! [y/n] !");
