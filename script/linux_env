@@ -33,8 +33,10 @@ git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/vimrc > $dir/vimrc
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/bundles.vim > $dir/bundles.vim
 mkdir -p $dir/tmp/
-curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/ctags-5.8.tar.gz  $dir/tmp/ctags-5.8.gar.gz 
+curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/ctags-5.8.tar.gz  > $dir/tmp/ctags-5.8.gar.gz 
 tar -xvf $dir/tmp/ctags-5.8.gar.gz 
+cd $dir/tmp/ctags-5.8/;./configure;make 
+make $dir/tmp/
 brew install ctags-exuberant
 mv $path/.vimrc $path/.vimrc__old
 mv $path/bundles.vim $path/bundles
