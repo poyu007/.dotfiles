@@ -55,7 +55,6 @@ function inst_ctag(){
     if(strlen($cmd_out) > strlen('apt-get:')){
         e($cmd);
         system('sudo apt-get install exuberant-ctags');
-        system('mkdir -p /usr/local/bin/;ln -s /usr/bin/ctags /usr/local/bin/ctags');
     }
     $cmd="whereis brew";
     $cmd_out = chop(`$cmd`);

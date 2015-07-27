@@ -158,7 +158,12 @@ nmap <silent> <leader>tl <Plug>TaskList
 let g:tagbar_width = 20
 let g:tagbar_singleclick = 1
 let g:tagbar_iconchars = ['▾', '▸']
-let g:tagbar_ctags_bin='/usr/local/bin/ctags'
+if filereadable(glob("/usr/local/bin/ctags")) 
+    let g:tagbar_ctags_bin='/usr/local/bin/ctags'
+elseif filereadable(glob("/usr/bin/ctags")) 
+    let g:tagbar_ctags_bin='/usr/bin/ctags'
+endif
+
 nnoremap <leader>tb :TagbarToggle<CR>
 
 " session
