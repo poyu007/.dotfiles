@@ -25,8 +25,9 @@ function e($p,$error=false){
 }
 
 
-function get_vim_cmd($path){
-    $dir='~/.vim';
+function get_vim_cmd(){
+    $dir=_HOME.'/.vim';
+    $home = _HOME;
     $c_dir='tmp_ctags';
 
 return <<<EOF
@@ -43,8 +44,8 @@ cd $dir/$c_dir/;tar -xvf ctags-5.8.gar.gz
 cd $dir/$c_dir/ctags-5.8/;./configure;make
 mv sudo $dir/ctags /usr/local/bin/ctags
 rm -rf $dir/$c_dir/
-mv $path/.vimrc $path/.vimrc__old
-mv $path/bundles.vim $path/bundles.vim__old
+mv ~/.vimrc ~/.vimrc__old
+mv ~/bundles.vim ~/bundles.vim__old
 ln -s $dir/vimrc  ~/.vimrc
 ln -s $dir/bundles.vim ~/.bundles.vim
 mkdir -p ~/.vim/backups
@@ -53,10 +54,9 @@ curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > ~/.vim/phpcta
 chmod +x ~/.vim/phpctags
 EOF;
 }
-
 function get_zsh_cmd(){
-    $path ='~/tmp_shell';
-    $home ='~';
+    $path =_HOME.'/tmp_shell';
+    $home =_HOME;
 
     return <<<EOF
 mkdir -p $path
@@ -82,14 +82,11 @@ function run_cmds($cmds){
         }
     }
 }
-
-
-define('_BASEDIR',$_ENV['HOME'].'/.vim');
-
+define('_HOME',chop(system('echo $HOME')));
 e("Process vim setup  ! [y/n] !");
 $yorn = read_stdin();
 if($yorn == 'y'){
-    $cmds = get_vim_cmd($_ENV['HOME']);
+    $cmds = get_vim_cmd();
     run_cmds($cmds);
 }
 
@@ -109,5 +106,4 @@ if($yorn == 'y'){
 # ln -s $dir/tmux.conf ~/.tmux.conf`;
 
 # #brew install ctags # vim +PluginInstall +qall now
-#
 ?>
