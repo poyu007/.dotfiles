@@ -1,0 +1,69 @@
+#!/usr/bin/php
+<?php
+
+function read_stdin()
+{
+    $fr=fopen("php://stdin","r");   // open our file pointer to read from stdin
+    $input = fgets($fr,128);        // read a maximum of 128 characters
+    $input = rtrim($input);         // trim any trailing spaces.
+    fclose ($fr);                   // close the file handle
+    return $input;                  // return the text entered
+}
+
+function e($echo,$error=false){
+    if(!$error){
+        if(count($echo) > 0){
+            print_r($echo)."\n";
+        }else echo $echo."\n";
+    }else{
+        echo 'Message error '.$echo."\n";
+        exit;
+    }
+}
+
+
+function get_vim_cmd($path){
+    $dir=_BASEDIR;
+return <<<EOF
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle/
+git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized/
+mkdir $dir
+curl -S https://raw.githubusercontent.com/poyu007/.dotfiles/master/vimrc > $dir/vimrc
+curl -S https://raw.githubusercontent.com/poyu007/.dotfiles/master/bundles.vim > $dir/bundles.vim
+brew install ctags-exuberant
+mv $path/.vimrc $path/.vimrc_oldversion
+ln -s $dir/vimrc  $path/.vimrc
+ln -s $dir/bundles.vim  ~/.vim/bundles.vim
+mkdir -p ~/.vim/backups
+mkdir -p ~/.vim/undo
+curl -S http://vim-php.com/phpctags/install/phpctags.phar > ~/.vim/phpctags
+chmod +x ~/.vim/phpctags
+EOF;
+}
+
+
+function run_cmds($cmd){
+    $cmd_ary = explode("\n", $cmd_txt);
+    foreach($cmd_ary as $cmd){
+        if(!empty($cmd )){
+            e($cmd);
+            //system($cmd);
+        }
+    }
+}
+
+
+define('_BASEDIR',$_ENV['HOME'].'/.vim/');
+
+e("Process vim setup  ! [y/n] !");
+$yorn = read_stdin();
+if($yorn == 'y'){
+    $cmds = get_vim_cmd($_ENV['HOME']);
+    run_cmds($cmds);
+}
+#`ln  $path/tmux.conf ~/.tmux.conf`;
+#`tmux source-file ~/.tmux.conf`;
+#
+#brew install ctags
+# vim +PluginInstall +qall now
+?>
