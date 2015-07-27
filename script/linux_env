@@ -55,8 +55,8 @@ EOF;
 }
 
 function get_zsh_cmd(){
-    $path = $_ENV['HOME'].'/tmp_shell';
-    $home = $_ENV['HOME'];
+    $path ='~/tmp_shell';
+    $home ='~';
 
     return <<<EOF
 mkdir -p $path
