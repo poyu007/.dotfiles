@@ -37,7 +37,6 @@ curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/vimrc > $dir/v
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/bundles.vim > $dir/bundles.vim
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/bundles.vim > $dir/tmux.conf
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/zshrc > $dir/zshrc
-mkdir -p $dir/tmp_ctags/
 mkdir -p /usr/local/bin/
 mv ~/.vimrc ~/.vimrc__old
 mv ~/bundles.vim ~/bundles.vim__old
@@ -51,12 +50,19 @@ EOF;
 }
 
 function inst_ctag(){
-    $cmd_out = chop(`whereis apt-get`);
-    if(!empty($cmd_out))  system('sudo apt-get install exberant-ctags');
-    $cmd_out = chop(`whereis brew`);
-    if(!empty($cmd_out))  system('brew install ctags-exuberant');
 
-
+    $cmd="whereis apt-get";
+    $cmd_out = chop(`$cmd`);
+    if(strlen($cmd_out) > strlen('apt-get:')){
+        e($cmd);
+        system('sudo apt-get install exberant-ctags');
+    }
+    $cmd="whereis brew";
+    $cmd_out = chop($cmd);
+    if(strlen($cmd_out) > strlen('brew:')){
+        e($cmd);
+        system('brew install ctags-exuberant');
+    }
 }
 function get_zsh_cmd(){
     $path =_HOME.'/tmp_shell';
@@ -86,13 +92,17 @@ function run_cmds($cmds){
         }
     }
 }
+
+
+
+inst_ctag();
+exit;
 define('_HOME',chop(system('echo $HOME')));
 e("Process vim setup  ! [y/n] !");
 $yorn = read_stdin();
 if($yorn == 'y'){
     $cmds = get_vim_cmd();
     run_cmds($cmds);
-    inst_ctag();
 }
 
 e("Process zsh jump setup   ! [y/n] !");
