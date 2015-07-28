@@ -48,6 +48,7 @@ EOF;
 function get_inst_shell(){
     $cmd="whereis apt-get";
     $cmd_out = chop(`$cmd`);
+    $shell ='';
     if(strlen($cmd_out) > strlen('apt-get:')){
         $shell = 'apt-get';
     }
