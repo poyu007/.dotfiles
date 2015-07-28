@@ -155,6 +155,9 @@ Bundle 'tpope/vim-surround'
 "Bundle 'godlygeek/tabular'
 "Bundle 'AutoClose'
 "Bundle 'ervandew/supertab'
+" super fast motion move 
+Bundle 'rking/ag.vim'
+Bundle 'yonchu/accelerated-smooth-scroll'
 filetype plugin indent on
 
 

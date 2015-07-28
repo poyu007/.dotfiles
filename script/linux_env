@@ -15,9 +15,9 @@ function e($p,$error=false){
     $alert_col="\033[1;32m";
     $normal_col= "\033[0;37m";
     if(!$error){
-        if(is_array($p)){
-            print_r($p)."\n";
-        }else echo $alert_col.'run-> '. $p."$normal_col \n";
+         if(is_array($p)){
+         print_r($p)."\n";
+         }else echo $alert_col.'run-> '. $p."$normal_col \n";
     }else{
         echo 'Message error '.$p."\n";
         exit;
@@ -30,7 +30,7 @@ function get_vim_cmd(){
     $home = _HOME;
     $c_dir='tmp_ctags';
 
-return <<<EOF
+    return <<<EOF
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle/
 git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized/
 curl -S https://raw.githubusercontent.com/poyu007/dotfiles/master/vimrc > $dir/vimrc
@@ -64,10 +64,12 @@ function inst_ctag(){
     if(INST_SHELL == 'apt-get'){
         e($cmd);
         system('sudo apt-get install exuberant-ctags');
+        system('apt-get install silversearcher-ag');
     }
     if(INST_SHELL == 'brew'){
         e($cmd);
         system('brew install ctags-exuberant');
+        system('brew install the_silver_searcher');
     }
 }
 function get_zsh_cmd(){

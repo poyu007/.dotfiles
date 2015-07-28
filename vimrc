@@ -252,6 +252,11 @@ noremap <leader>p :set paste<CR>:put *<CR>:set nopaste<CR>
 " noremap <leader>y "*y
 " noremap <leader>yy "*Y
 
+
+" -----------------  Ag search ----
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+
 " -----------------  neocomplcache start here 0
 
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
