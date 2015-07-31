@@ -1,0 +1,11 @@
+{
+    "user": "josh",
+    "dev_server": "dev.heisoo.com",
+    "stage_server": "staging.heisoo.com",
+    "git_dir": "\/Users\/macbook\/src",
+    "home": "\/Users\/macbook",
+    "inst_script": "brew",
+    "version": "1.0.0",
+    "setting_time": "20150731",
+    "update_time": "20150731"
+}

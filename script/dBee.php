@@ -2,32 +2,32 @@
 
 include 'inc/basic.inc';
 include 'inc/shell_def.inc';
+$conf = is_file(__DIR__.'/inc/hs_conf.inc') ? __DIR__.'/inc/hs_conf.inc' : __DIR__.'/inc/conf.inc';
+include($conf);
 // check user config  exist
-$_cf = loadConf(UC_LOC);
-if(!isset($_cf)) {
+//
+//a
+if(!isset($argv[1])){
+    e('miss parameter type -set , -dir ,-run, -do, -file, -add, -bind','red');
+}else if(file_exists(UC_LOC) == false or $argv[1] == '-set') {
     init();
     exit;
 }
+
+$_cf = loadConf(UC_LOC);
 //loading config
 conf_to_def($_cf);
-$_pcf=loadProjConf();
+$_pcf=loadConf(PCONF_LOC);
 
 
-if(count($argv) < 2 ){
-    e('miss parameter type -set , -dir ,-run, -do, -file, -add, -bind','red');
-
-}else{
-    $arg = '';
-    $num = count($argv);
-    for($i=3; $i< $num ; $i++){
-        $arg .= $argv[$i].' ';
-    }
-
+$arg = '';
+$num = count($argv);
+for($i=3; $i< $num ; $i++){
+    $arg .= $argv[$i].' ';
 }
 
-if($argv[1] == '-set'){
-    init();
-}else if($argv[1] == '-dir'){
+
+if($argv[1] == '-dir'){
     proj_all();
 
 }else if($argv[1] == '-run'){
@@ -52,4 +52,3 @@ if($argv[1] == '-set'){
 }else if($argv[1] == '-bind'){
 }
 
-?>

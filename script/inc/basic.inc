@@ -14,9 +14,14 @@ function e($p,$code ='green'){
         exit;
     }else if(is_array($p)){
         print_r($p);
+    }else if($code == 'run'){
+        echo $color['green'].'Run ->  '.$p.$color['white']."\n";
+        system($p,$out);
+        $color['green'].$out.$color['white']."\n";
     }else{
-        echo $color[$code].'Run:  '. $p.$color['white']."\n";
-    }
+        echo $color[$code].' '.$p.$color['white']."\n";
+
+   }
 }
 
 function read_stdin()

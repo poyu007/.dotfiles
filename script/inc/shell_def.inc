@@ -6,8 +6,7 @@ define('UC_LOC',getenv('HOME').'/'.UCONF);
 define("RSYNC_CMD",'rsync -raiv ');
 #define("RSYNC_CMD",'rsync -raiv --delete');
 date_default_timezone_set('Asia/Shanghai');
-$conf = is_file(__DIR__.'/hs_conf.inc') ? __DIR__.'/hs_conf.inc' : __DIR__.'/conf.inc';
-include($conf);
+
 function e_def(){
     $const=get_defined_constants();
     print_r($const);
@@ -23,17 +22,23 @@ function conf_to_def($conf){
         define('_'.strtoupper($k),$v);
     }
     define('_DEV', _USER.'@'._DEV_SERVER);
+
+
+    define_proj_dir($conf['git_dir'],$conf['user']);
 }
 
 
 
 function saveConf($conf,$json){
-    if(!empty($json)) file_put_contents($conf,json_encode($json,JSON_PRETTY_PRINT));
+    if(!empty($json)){
+        file_put_contents($conf,json_encode($json,JSON_PRETTY_PRINT));
+    }
 }
 
-function loadProjConf(){
 
-    $len = strlen(_GIT_DIR);
+function define_proj_dir($dir,$user){
+
+    $len = strlen($dir);
     $left_dir=substr(getenv('PWD'),$len);
     $raw = explode("/", $left_dir);
 
@@ -41,17 +46,13 @@ function loadProjConf(){
         e('directory path wrong'.__LINE__,'red');
     }
 
-    define('PCONF_LOC',_GIT_DIR.'/'.$raw[1].'/'.PCONF);
-    define('PCONF_PATH',_GIT_DIR.'/'.$raw[1].'/');
+    define('PCONF_LOC',$dir.'/'.$raw[1].'/'.PCONF);
+    define('PCONF_PATH',$dir.'/'.$raw[1].'/');
     define('PROJ',$raw[1]);
+    define('_TARGET','/home/'.$user._PROJ_DIR.'/'.PROJ.'/');
 
-    $conf = loadConf(PCONF_LOC);
-    define('_TARGET',$conf['target']);
 
-    if($conf == false) {
-        e($conf.' load fail reset your config using -set !','yellow');
-        init();
-    }
+
 }
 
 function conf_setting($setting,$ary = array()){
@@ -59,14 +60,27 @@ function conf_setting($setting,$ary = array()){
 
     $inst_script  =  get_inst_shell();
     if ($inst_script != '') $_cf['inst_script'] = $inst_script;
-
-    if(!is_null($ary)){ 
-        $res = array_merge($_cf,$ary);
+    if (defined('_VERSION')){
+        $_cf['inst_version'] = _VERSION;
     }
-    saveConf($setting,$res);
+    $_cf['setting_time'] =  date("Ymd");
+    $_cf['update_time'] =  date("Ymd");
+
+    $_cf = array_merge($_cf,$ary);
+
+    saveConf(UC_LOC,$_cf);
+    define_proj_dir($_cf['git_dir'],$_cf['user']);
+
+    if(file_exists(PCONF_PATH)){
+        saveConf(PCONF_LOC,defaultProjConf(_TARGET));
+    }else{
+        unlink(UC_LOC);
+        e('Git path not exist','red');
+    }
 }
 
 function init($init_flag = 0){
+    keygen();
     e("\n------------------------------  Client Bee Setup  -------------------------------\n",'yellow');
 
     e("Process Heisoo Desk bee  script configure setup ! [y/n] !");
@@ -80,15 +94,9 @@ function init($init_flag = 0){
         if(!empty($user) and !empty($git_dir)) 
             conf_setting(UC_LOC,array('user' => $user ,'git_dir' => $git_dir));
     }else{
-        e('if you don\'t set up your configuration you can\'t run the program','red');
+        e('type y  if you wanna set up your configuration !','red');
     }
 
-/*
-    e("Load default tmux shell [y/n] ?");
-    $yorn = read_stdin();
- */
-    //if($yorn = 'y') 
-    //
     e("\n--------------------------------  End Setup  ------------------------------------\n",'yellow');
 }
 
@@ -99,43 +107,23 @@ function run_git_script($url){
 }
 function keygen(){
 
-    $alert_col="\033[1;31m";
-    $normal_col= "\033[0;37m";
 
-    e($alert_col."\n---------------------------------  important  ---------------------------------\n");
-    e("Setup ssh keygen [y/n] ? ".$normal_col);
+    e("\n---------------------------------  important  ---------------------------------\n",'yellow');
+    e("Setup ssh keygen [y/n] ? ");
     $yorn = read_stdin();
     if($yorn == 'y'){
         passthru('ssh-keygen -t rsa');
-        echo _DEV."'s password ? =>  ";
-        $pw = read_stdin();
-        system('./exp '._HOME." $pw",$out);
-        e($out);
+        //$pw = read_stdin();
+        $path=getenv('HOME');
+
+        $cmd = "scp $path/.ssh/id_rsa $path/.ssh/id_rsa.pub josh@dev.heisoo.com:~/.ssh/";
+        e($cmd,'run');
+        $cmd = 'ssh -t josh@dev.heisoo.com  "bee -key"';
+        e($cmd,'run');
+
         //system($cmd, $out);
     }
 }
-
-function initProj(){
-
-    e("\n------------------------------  Projct Conf setup  -------------------------------\n");
-
-    $target =  '/home/'._USER.'/proj/'.PROJ.'/';
-    e('Target directory : '.$target .'okay  !!');
-
-    $_pcf = array(
-        'path' => array(
-
-            array( 'from' =>' ', 'to' => ''),
-        ),
-        'target' => $target,
-    );
-    saveConf(PCONF_LOC,$_pcf);
-
-    $cmd= 'mkdir -p  /home/'._USER.'/proj/';
-    remote_exec($cmd);
-    e("\n--------------------------------  End Setup  ------------------------------------\n");
-}
-
 function remote_exec($file,$arg = _PARA){
     $file = realpath($file);
     if(!is_executable($file)){
@@ -180,3 +168,9 @@ function get_newpos($file){
     $rela_path = substr($file,strlen(_GIT_DIR));
     return '/home/'._USER.'/proj'.$rela_path;
 }
+
+
+
+
+
+
