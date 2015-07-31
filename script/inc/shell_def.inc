@@ -3,11 +3,11 @@
 define('UCONF','.beeconf'); // user config file name
 define('PCONF','.pconf'); // proj config file name
 define('UC_LOC',getenv('HOME').'/'.UCONF);
-define('VIM_SHELL','https://raw.githubusercontent.com/poyu007/.dotfiles/master/script/vim_ide');
-define("RSYNC_CMD",'rsync -raiv --delete');
-
+define("RSYNC_CMD",'rsync -raiv ');
+#define("RSYNC_CMD",'rsync -raiv --delete');
 date_default_timezone_set('Asia/Shanghai');
-
+$conf = is_file(__DIR__.'/hs_conf.inc') ? __DIR__.'/hs_conf.inc' : __DIR__.'/conf.inc';
+include($conf);
 function e_def(){
     $const=get_defined_constants();
     print_r($const);
@@ -15,10 +15,8 @@ function e_def(){
 
 function loadConf($conf){
     if(file_exists($conf)) return json_decode(file_get_contents($conf),true);
-    else false;
+    else return false;
 }
-
-
 
 function conf_to_def($conf){
     foreach($conf as $k => $v){
@@ -33,94 +31,65 @@ function saveConf($conf,$json){
     if(!empty($json)) file_put_contents($conf,json_encode($json,JSON_PRETTY_PRINT));
 }
 
-function e($echo,$error=false){
-    if(!$error){
-        if(count($echo) > 0){
-            print_r($echo)."\n";
-        }else echo $echo."\n";
-    }else{
-        echo 'Message error '.$echo."\n";
-        exit;
-    }
-}
-
 function loadProjConf(){
 
     $len = strlen(_GIT_DIR);
-    $left_dir=substr($_ENV['PWD'],$len);
+    $left_dir=substr(getenv('PWD'),$len);
     $raw = explode("/", $left_dir);
 
     if(count($raw) == 0){
-        e('directory path wrong'.__LINE__,true);
+        e('directory path wrong'.__LINE__,'red');
     }
 
     define('PCONF_LOC',_GIT_DIR.'/'.$raw[1].'/'.PCONF);
     define('PCONF_PATH',_GIT_DIR.'/'.$raw[1].'/');
     define('PROJ',$raw[1]);
 
-
     $conf = loadConf(PCONF_LOC);
     define('_TARGET',$conf['target']);
 
-    if(!empty($conf)) return $conf;
-    initProj();
-
+    if($conf == false) {
+        e($conf.' load fail reset your config using -set !','yellow');
+        init();
+    }
 }
-function user_setting($setting,$ary = array()){
 
-    $_cf = array(
-        'user' => 'josh',
-        'dev_server' => 'dev.heisoo.com',
-        'stage_server' => 'staging.heisoo.com',
-        'git_dir' => '/Users/macbook/src',
-        'home' => getenv('HOME'),
-    );
+function conf_setting($setting,$ary = array()){
+    $_cf = defaultConf();
 
-    $found = (strpos($_ENV['SSH_AUTH_SOCK'],'apple') !== false);
-    if ($found) $_cf['device'] ='apple';
-    $_cf['time'] =   date("Y-m-d H:i:s");
+    $inst_script  =  get_inst_shell();
+    if ($inst_script != '') $_cf['inst_script'] = $inst_script;
 
     if(!is_null($ary)){ 
-        echo '------------------------';
         $res = array_merge($_cf,$ary);
     }
     saveConf($setting,$res);
 }
 
-function read_stdin()
-{
-    $fr=fopen("php://stdin","r");   // open our file pointer to read from stdin
-    $input = fgets($fr,128);        // read a maximum of 128 characters
-    $input = rtrim($input);         // trim any trailing spaces.
-    fclose ($fr);                   // close the file handle
-    return $input;                  // return the text entered
-}
-
 function init($init_flag = 0){
-    e("\n------------------------------  Client Bee Setup  -------------------------------\n");
+    e("\n------------------------------  Client Bee Setup  -------------------------------\n",'yellow');
 
-    e("Process B  script configure setup ! [y/n] !");
+    e("Process Heisoo Desk bee  script configure setup ! [y/n] !");
     $yorn = read_stdin();
     if($yorn == 'y') {
         e("Initial Local Bee please take few seconds for setup up configuration !");
         e("Your unix name in company ?");
         $user = read_stdin();
-        e("Git Directory path ?  now => ".$_ENV['PWD']);
+        e("Git Directory path ?  now => ".getenv('PWD'));
         $git_dir = read_stdin();
         if(!empty($user) and !empty($git_dir)) 
-            user_setting(UC_LOC,array('user' => $user ,'git_dir' => $git_dir));
+            conf_setting(UC_LOC,array('user' => $user ,'git_dir' => $git_dir));
+    }else{
+        e('if you don\'t set up your configuration you can\'t run the program','red');
     }
 
-    e("Load default vim plugin shell [y/n] ?");
-    $yorn = read_stdin();
-    if($yorn == 'y') run_git_script(VIM_SHELL);
 /*
     e("Load default tmux shell [y/n] ?");
     $yorn = read_stdin();
-*/
+ */
     //if($yorn = 'y') 
     //
-    e("\n--------------------------------  End Setup  ------------------------------------\n");
+    e("\n--------------------------------  End Setup  ------------------------------------\n",'yellow');
 }
 
 function run_git_script($url){
@@ -152,7 +121,6 @@ function initProj(){
 
     $target =  '/home/'._USER.'/proj/'.PROJ.'/';
     e('Target directory : '.$target .'okay  !!');
-    sleep(1);
 
     $_pcf = array(
         'path' => array(
@@ -168,10 +136,10 @@ function initProj(){
     e("\n--------------------------------  End Setup  ------------------------------------\n");
 }
 
-function remote_exec($file,$arg){
+function remote_exec($file,$arg = _PARA){
     $file = realpath($file);
     if(!is_executable($file)){
-        e("flle can't execution",true); 
+        e("flle can't execution",'red'); 
     }
     $rela_file = get_newpos($file);
 
@@ -181,16 +149,27 @@ function remote_exec($file,$arg){
     e($res);
 }
 
-function proj_all($conf){
+function remote_do($do){
+
+    $cmd = "ssh -t "._DEV.'  "cd ~/;'.$do.'"';
+    e($cmd);
+    system($cmd,$res);
+    e($res);
+}
+
+function proj_all(){
     $exclude="--exclude '.git' ";
     $exclude.="--exclude 'tag' ";
-    $sync_cmd= RSYNC_CMD.' '.PCONF_PATH.' '._DEV.':'.$conf['target'].' '.$exclude;
+    $exclude.="--exclude '.DS_Store' ";
+    $sync_cmd= RSYNC_CMD.' '.PCONF_PATH.' '._DEV.':'._TARGET.' '.$exclude;
+    e($sync_cmd,'yellow');
     system($sync_cmd,$out);
-    e($out);
 }
 function proj_file($file){
 
     $file = realpath($file);
+    if(!is_file($file)) e('Not a file ','red');
+
     $rela_file = get_newpos($file);
     $sync_cmd= 'rsync  -raiv  '.$file.' '._DEV.':'.$rela_file;
     e($sync_cmd);

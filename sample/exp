@@ -1,0 +1,21 @@
+#!/usr/bin/expect
+set timeout 20
+set path [lindex $argv 0];
+set pw [lindex $argv 1];
+
+spawn scp $path/.ssh/id_rsa $path/.ssh/id_rsa.pub josh@dev.heisoo.com:~/.ssh/
+expect "password:"
+send "$pw\n"
+interact
+spawn ssh  josh@dev.heisoo.com 
+expect "password:"
+send "$pw\n"
+send "bee -key\n"
+expect "password:"
+send "$pw\n"
+expect "done"
+send "exit\n"
+interact
+exit
+#interact timeout 30 { send "s" }
+#spawn ssh  josh@dev.heisoo.com
