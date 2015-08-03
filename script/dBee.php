@@ -19,6 +19,8 @@ $_cf = loadConf(UC_LOC);
 conf_to_def($_cf);
 $_pcf=loadConf(PCONF_LOC);
 
+check_version();
+
 
 $arg = '';
 $num = count($argv);

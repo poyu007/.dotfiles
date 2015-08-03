@@ -4,8 +4,39 @@ define('UCONF','.beeconf'); // user config file name
 define('PCONF','.pconf'); // proj config file name
 define('UC_LOC',getenv('HOME').'/'.UCONF);
 define("RSYNC_CMD",'rsync -raiv ');
+define('VER_URL','https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_bee.ver');
+
 #define("RSYNC_CMD",'rsync -raiv --delete');
 date_default_timezone_set('Asia/Shanghai');
+
+function check_version(){
+    $date1=strtotime(date('Ymd')); 
+    $date2=strtotime(_UPDATE_TIME);
+    $days=round(($date2 - $date1)/3600/24) ;
+    if($days < -7 ){
+        $file = getenv('HOME').'/.ver';
+        $shell =  webCall().' -s '.VER_URL.' > '.$file;
+        e($shell);
+        $out = `$shell`;
+        $verion = file_get_contents($file);
+        print_r($verion);
+        if($verion != _VERSION){
+            upgrade();
+            @unlink($file);
+            $_cf=loadConf(UC_LOC);
+            $_cf['update_time'] =  date("Ymd");
+            saveConf(UC_LOC,$_cf);
+        }
+    }
+
+}
+
+function upgrade(){
+    $cmd= "mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_dBee.phar  > /usr/local/bin/hs_Dbee.phar"; 
+    e($cmd,'run');
+}
+
+
 
 function e_def(){
     $const=get_defined_constants();

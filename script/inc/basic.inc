@@ -17,10 +17,10 @@ function e($p,$code ='green'){
     }else if($code == 'run'){
         echo $color['green'].'Run ->  '.$p.$color['white']."\n";
         system($p,$out);
+        return $out;
         $color['green'].$out.$color['white']."\n";
     }else{
         echo $color[$code].' '.$p.$color['white']."\n";
-
    }
 }
 
@@ -48,5 +48,21 @@ function get_inst_shell(){
     }
     return $shell;
 }
+function webCall(){
+    $cmd="which wget";
+    $cmd_out = chop(`$cmd`);
+    $shell ='';
+    if (!preg_match("/no /i",$cmd_out)) {
+        $shell = 'wget';
+    }
+    $cmd="which curl";
+    $cmd_out = chop(`$cmd`);
 
+    if (!preg_match("/no /i",$cmd_out)) {
+        $shell = 'curl';
+    }
+    return $shell;
+
+
+}
 ?>
