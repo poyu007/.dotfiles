@@ -16,7 +16,7 @@ function get_vim_cmd(){
 git clone https://github.com/gmarik/Vundle.vim.git $dir/bundle/vundle/
 git clone https://github.com/altercation/vim-colors-solarized.git $dir/bundle/vim-colors-solarized/
 curl -S# $git_dir/vimrc > $dir/vimrc
-curl -S# $git_dir/bundles.vim > $dir/tmux.conf
+curl -S# $git_dir/tmux.conf > $dir/tmux.conf
 curl -S# $git_dir/zshrc > $dir/zshrc
 mv ~/.vimrc ~/.vimrc__old
 ln -s $dir/vimrc  ~/.vimrc
@@ -27,9 +27,9 @@ chmod +x $dir/phpctags
 EOF;
 
     if(is_defined('_SHARE')){
-        e("curl -S# $git_dir/share_bundles.vim > $dir/bundles.vim");
+        e("curl -S# $git_dir/share_bundles.vim > $dir/bundles.vim".'yellow');
     }else{
-        e("curl -S# $git_dir/bundles.vim > $dir/bundles.vim");
+        e("curl -S# $git_dir/bundles.vim > $dir/bundles.vim",'yellow');
     }
     
 }
@@ -84,7 +84,7 @@ if($yorn == '1'){
     define('_HOME',getenv('HOME').'/.vim');
 }else if($yorn == '2'){
     define('_HOME','/usr/local/vim');
-    define('_SHARE',1);
+    define('_SHARE',true);
 
 }
 e("Process vim setup  ! [y/n] !");
