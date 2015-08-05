@@ -7,7 +7,6 @@ define('INST_SHELL',get_inst_shell());
 
 function get_vim_cmd(){
     $dir=_HOME;
-    $c_dir='tmp_ctags';
     $git_dir='https://raw.githubusercontent.com/poyu007/heisoo_env/master/dotfiles';
 
     return <<<EOF
@@ -21,7 +20,7 @@ mv ~/.vimrc ~/.vimrc__old
 ln -s $dir/vimrc  ~/.vimrc
 mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undo
-curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctags
+curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctags
 chmod +x $dir/phpctags
 EOF;
 }
