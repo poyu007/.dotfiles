@@ -26,7 +26,7 @@ curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctag
 chmod +x $dir/phpctags
 EOF;
 
-    if(is_defined('_SHARE')){
+    if(defined('_SHARE')){
         e("curl -S# $git_dir/share_bundles.vim > $dir/bundles.vim".'run');
     }else{
         e("curl -S# $git_dir/bundles.vim > $dir/bundles.vim",'run');
