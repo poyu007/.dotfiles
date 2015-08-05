@@ -83,10 +83,11 @@ if($yorn == 'y'){
 }
 function inst_zsh(){
     $dir=_HOME;
+    $zsh='zsh-5.0.6';
 
     $cmd = <<<EOF
-curl -S#  http://ftp.lfs-matrix.net/pub/blfs/conglomeration/zsh/zsh-5.0.2.tar.bz2  >  $dir/zsh-5.0.2.tar.bz2
-cd $dir;tar xvjf zsh-5.0.2.tar.bz2;cd zsh-5.0.2;./configure && make && sudo make install
+curl -S#  http://ftp.lfs-matrix.net/pub/blfs/conglomeration/zsh/$zsh.tar.bz2  >  $dir/$zsh.tar.bz2
+cd $dir;tar xvjf $zsh.tar.bz2;cd $zsh;./configure && make && sudo make install
 EOF;
     run_cmds($cmd);
 
