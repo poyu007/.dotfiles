@@ -27,7 +27,9 @@ curl -S# $git_dir/vimrc > $dir/vimrc
 curl -S# $git_dir/tmux.conf > $dir/tmux.conf
 curl -S# $git_dir/zshrc > $dir/zshrc
 mv ~/.vimrc ~/.vimrc__old
+mv ~/.tmux.conf ~/.tmux.conf__old
 ln -s $dir/vimrc  ~/.vimrc
+ln -s $dir/tmux.conf  ~/.tmux.conf
 mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undo
 curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctags
@@ -53,21 +55,6 @@ function inst_ctag(){
         e('brew install ctags-exuberant','run');
         e('brew install the_silver_searcher','run');
     }
-}
-function get_zsh_cmd(){
-    $path =_HOME.'/tmp_shell';
-
-    return <<<EOF
-mkdir -p $path
-curl -S http://www.zsh.org/pub/
-curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/zsh-5.0.8.tar.bz2 >  $path/zsh-5.0.8.tar.bz2
-cd $path;tar --strip-components=1 -xvf zsh-5.0.8.tar.bz2; ./configure --prefix=/usr --bindir=/bin --sysconfdir=/etc/zsh --enable-etcdir=/etc/zsh
-cd $path;make;makeinfo  Doc/zsh.texi --plaintext -o Doc/zsh.txt;makeinfo  Doc/zsh.texi --html -o Doc/html;makeinfo  Doc/zsh.texi --html --no-split --no-headers -o Doc/zsh.html
-cd $path;git clone git://github.com/joelthelion/autojump.git
-cd $path/autojump;chmod 755 install.py; /install.py
-curl -L   https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-rm -rf $path;
-EOF;
 }
 
 function run_cmds($cmds){
@@ -101,8 +88,8 @@ e("Process zsh jump setup   ! [y/n] !");
 $yorn = read_stdin();
 if($yorn == 'y'){
     if(INST_SHELL == 'brew'){
-        $cmds = get_zsh_cmd();
-        run_cmds($cmds);
+        $cmd = 'brew install zsh';
+        e($cmd,'run');
     }elseif(INST_SHELL == 'apt-get'){
         $cmd ="sudo apt-get install zsh git-core";
         e($cmd,'run');
@@ -111,11 +98,11 @@ if($yorn == 'y'){
         e($cmd,'run');
     }
 
-    $cmd= "curl -L# http://install.ohmyz.sh > ".getenv('HOME')."/install.ohmyz.sh;sh ".getenv('HOME')."/install.ohmyz.sh"; 
+    $cmd= "curl -L# http://install.ohmyz.sh > ".getenv('HOME')."/install.ohmyz.sh;sh ".getenv('HOME')."/install.ohmyz.sh;rm ".getenv('HOME').'/install.ohmyz.sh';
     e($cmd,'run');
     $cmd = "mv ~/.zshrc ~/.zshrc__old;ln -s "._HOME."/zshrc ~/.zshrc";
-    e('cd '._HOME.';git clone git://github.com/joelthelion/autojump.git');
     e($cmd,'run');
+    e('cd '._HOME.';git clone git://github.com/joelthelion/autojump.git;cd autojump;./install.py','run');
 
 }
 
