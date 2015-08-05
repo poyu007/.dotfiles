@@ -13,7 +13,7 @@ function get_vim_cmd(){
     $git_dir='https://raw.githubusercontent.com/poyu007/heisoo_env/master/dotfiles';
 
     if(defined('_SHARE')){
-        e("curl -S# $git_dir/share_bundles.vim > $dir/bundles.vim".'run');
+        e("curl -S# $git_dir/share_bundles.vim > $dir/bundles.vim",'run');
     }else{
         e("curl -S# $git_dir/bundles.vim > $dir/bundles.vim",'run');
     }
@@ -34,7 +34,6 @@ curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctag
 chmod +x $dir/phpctags
 EOF;
 
-    
 }
 
 
@@ -109,11 +108,13 @@ if($yorn == 'y'){
         e($cmd,'run');
         $cmd= "curl -L# http://install.ohmyz.sh > ~/.vim/install.ohmyz.sh;sh ~/.vim/install.ohmyz.sh"; 
         e($cmd,'run');
+    }elseif(INST_SHELL == 'yum' ){
+        $cmd=('sudo yum install zsh');
+        e($cmd,'run');
     }
 
-    $cmd = "mv ~/.zshrc ~/.zshrc__old;ln -s "._HOME."/.vim/zshrc ~/.zshrc";
-    e($cmd);
-    system($cmd);
+    $cmd = "mv ~/.zshrc ~/.zshrc__old;ln -s "._HOME."/zshrc ~/.zshrc";
+    e($cmd,'run');
 
 }
 
