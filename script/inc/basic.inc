@@ -35,16 +35,23 @@ function read_stdin()
 
 function get_inst_shell(){
     $cmd="which apt-get";
-    $cmd_out = system($cmd);
+    $cmd_out = exec($cmd);
     $shell ='';
     if (!preg_match("/no /i",$cmd_out)) {
         $shell = 'apt-get';
     }
-    $cmd="which brew";
-    $cmd_out = system($cmd);
 
+    $cmd="which brew";
+    $cmd_out = exec($cmd);
     if (!preg_match("/no /i",$cmd_out)) {
         $shell = 'brew';
+    }
+
+
+    $cmd="which yum";
+    $cmd_out = exec($cmd);
+    if (!preg_match("/not |no /i",$cmd_out)) {
+        $shell = 'yum';
     }
     return $shell;
 }
