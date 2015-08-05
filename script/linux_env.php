@@ -87,7 +87,8 @@ function inst_zsh(){
 
     $cmd = <<<EOF
 curl -S#  http://ftp.lfs-matrix.net/pub/blfs/conglomeration/zsh/$zsh.tar.bz2  >  $dir/$zsh.tar.bz2
-cd $dir;tar xvjf $zsh.tar.bz2;cd $zsh;./configure && make && sudo make install
+cd $dir;tar xvjf $zsh.tar.bz2;cd $dir/$zsh;./configure && make && sudo make install
+rd -rf $dir/$zsh.*
 EOF;
     run_cmds($cmd);
 
@@ -101,8 +102,8 @@ if($yorn == 'y'){
         $cmd ="sudo apt-get install zsh git-core";
         e($cmd,'run');
     }elseif(INST_SHELL == 'yum' ){
+        $cmd=('yum install ncurses-devel;sudo yum install autojump');
         inst_zsh();
-        $cmd=('sudo yum install autojump');
         e($cmd,'run');
     }
 
