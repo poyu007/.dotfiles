@@ -88,6 +88,7 @@ function inst_zsh(){
 curl -S# http://sourceforge.net/projects/zsh/files/zsh/5.0.2/zsh-5.0.2.tar.bz2/download  >  $dir/zsh-5.0.2.tar.bz2
 cd $dir;tar xvjf zsh-5.0.2.tar.bz2;cd zsh-5.0.2;./configure && make && sudo make install
 EOF;
+    run_cmds($cmd);
 
 }
 e("Process zsh jump setup   ! [y/n] !");
