@@ -85,7 +85,7 @@ function inst_zsh(){
     $dir=_HOME;
 
     $cmd = <<<EOF
-curl -S# http://sourceforge.net/projects/zsh/files/zsh/5.0.2/zsh-5.0.2.tar.bz2/download  >  $dir/zsh-5.0.2.tar.bz2
+curl -S#  http://ftp.lfs-matrix.net/pub/blfs/conglomeration/zsh/zsh-5.0.2.tar.bz2  >  $dir/zsh-5.0.2.tar.bz2
 cd $dir;tar xvjf zsh-5.0.2.tar.bz2;cd zsh-5.0.2;./configure && make && sudo make install
 EOF;
     run_cmds($cmd);
