@@ -35,13 +35,13 @@ function read_stdin()
 
 function get_inst_shell(){
     $cmd="which apt-get";
-    $cmd_out = chop(`$cmd`);
+    $cmd_out = system($cmd);
     $shell ='';
     if (!preg_match("/no /i",$cmd_out)) {
         $shell = 'apt-get';
     }
     $cmd="which brew";
-    $cmd_out = chop(`$cmd`);
+    $cmd_out = system($cmd);
 
     if (!preg_match("/no /i",$cmd_out)) {
         $shell = 'brew';

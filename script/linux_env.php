@@ -74,7 +74,7 @@ $yorn = read_stdin();
 if($yorn == '1'){
     define('_HOME',getenv('HOME').'/.vim');
 }else if($yorn == '2'){
-    define('_HOME','/usr/local/vim/');
+    define('_HOME','/usr/local/vim');
 }
 e("Process vim setup  ! [y/n] !");
 $yorn = read_stdin();
