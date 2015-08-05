@@ -1,8 +1,12 @@
 """"""""""""""""""""""""""""
 " Vundle
 """"""""""""""""""""""""""""
-source ~/.vim/bundles.vim 
-"
+
+if filereadable(glob("/usr/local/vim/bundles.vim")) 
+    source  /usr/local/vim/bundles.vim
+elseif filereadable(glob("~/.vim/bundles.vim"))
+    source  ~/.vim/bundles.vim
+endif
 
 "filetype plugin indent on
 "
