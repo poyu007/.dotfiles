@@ -3,7 +3,8 @@ include 'inc/basic.inc';
 
 ob_start();
 define('INST_SHELL',get_inst_shell());
-ob_end_clean();
+ob_flush();
+//ob_end_clean();
 e('Install Shell : '.INST_SHELL);
 
 
@@ -82,29 +83,37 @@ if($yorn == 'y'){
     run_cmds($cmds);
     inst_ctag();
 }
+function inst_zsh(){
+    $dir=_HOME;
 
+    $cmd = <<<EOF
+curl -S# http://sourceforge.net/projects/zsh/files/zsh/5.0.2/zsh-5.0.2.tar.bz2/download  >  $dir/zsh-5.0.2.tar.bz2
+cd $dir;tar xvjf zsh-5.0.2.tar.bz2;cd zsh-5.0.2;./configure && make && sudo make install
+EOF;
+
+}
 e("Process zsh jump setup   ! [y/n] !");
 $yorn = read_stdin();
 if($yorn == 'y'){
     if(INST_SHELL == 'brew'){
-        $cmd = 'brew install zsh';
-        e($cmd,'run');
+        inst_zsh();
     }elseif(INST_SHELL == 'apt-get'){
         $cmd ="sudo apt-get install zsh git-core";
         e($cmd,'run');
     }elseif(INST_SHELL == 'yum' ){
-        $cmd=('sudo yum install zsh; sudo yum install autojump');
+        inst_zsh();
+        $cmd=('sudo yum install autojump');
         e($cmd,'run');
     }
 
-    $cmd= "curl -L# http://install.ohmyz.sh > ".getenv('HOME')."/install.ohmyz.sh;sh ".getenv('HOME')."/install.ohmyz.sh;rm ".getenv('HOME').'/install.ohmyz.sh';
+    $cmd= "curl -L# http://install.ohmyz.sh > ".getenv('HOME')."install.ohmyz.sh;sh ".getenv('HOME')."install.ohmyz.sh;rm ".getenv('HOME').'/install.ohmyz.sh';
     e($cmd,'run');
     $cmd = "mv ~/.zshrc ~/.zshrc__old;ln -s "._HOME."/zshrc ~/.zshrc";
     e($cmd,'run');
     e('cd '._HOME.';git clone git://github.com/joelthelion/autojump.git;cd autojump;./install.py','run');
     e('curl -S# https://raw.githubusercontent.com/joelthelion/autojump/master/bin/autojump.zsh -O > '._HOME.'/autojump.zsh','run');
     e("sed -i 's/--add/-a/g' "._HOME.'/autojump.zsh','run');
-    e('sudo cp '._HOME.'/autojiump '.'/etc/profile.d/autojump.zsh','run');
+    e('sudo cp '._HOME.'/autojump.zsh '.'/etc/profile.d/autojump.zsh','run');
 
 }
 
