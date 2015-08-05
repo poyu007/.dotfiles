@@ -12,6 +12,14 @@ function get_vim_cmd(){
     $dir=_HOME;
     $git_dir='https://raw.githubusercontent.com/poyu007/heisoo_env/master/dotfiles';
 
+    if(defined('_SHARE')){
+        e("curl -S# $git_dir/share_bundles.vim > $dir/bundles.vim".'run');
+    }else{
+        e("curl -S# $git_dir/bundles.vim > $dir/bundles.vim",'run');
+    }
+
+
+
     return <<<EOF
 git clone https://github.com/gmarik/Vundle.vim.git $dir/bundle/vundle/
 git clone https://github.com/altercation/vim-colors-solarized.git $dir/bundle/vim-colors-solarized/
@@ -26,11 +34,6 @@ curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctag
 chmod +x $dir/phpctags
 EOF;
 
-    if(defined('_SHARE')){
-        e("curl -S# $git_dir/share_bundles.vim > $dir/bundles.vim".'run');
-    }else{
-        e("curl -S# $git_dir/bundles.vim > $dir/bundles.vim",'run');
-    }
     
 }
 
