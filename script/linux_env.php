@@ -1,27 +1,28 @@
 <?php
 include 'inc/basic.inc';
 
+define('INST_SHELL',get_inst_shell());
+
 
 
 function get_vim_cmd(){
-    $dir=_HOME.'/.vim';
-    $home = _HOME;
+    $dir=_HOME;
     $c_dir='tmp_ctags';
     $git_dir='https://raw.githubusercontent.com/poyu007/heisoo_env/master/dotfiles';
 
     return <<<EOF
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle/
-git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized/
-curl -S $git_dir/vimrc > $dir/vimrc
-curl -S $git_dir/bundles.vim > $dir/bundles.vim
-curl -S $git_dir/bundles.vim > $dir/tmux.conf
-curl -S $git_dir/zshrc > $dir/zshrc
+git clone https://github.com/gmarik/Vundle.vim.git $dir/bundle/vundle/
+git clone https://github.com/altercation/vim-colors-solarized.git $dir/bundle/vim-colors-solarized/
+curl -S# $git_dir/vimrc > $dir/vimrc
+curl -S# $git_dir/bundles.vim > $dir/bundles.vim
+curl -S# $git_dir/bundles.vim > $dir/tmux.conf
+curl -S# $git_dir/zshrc > $dir/zshrc
 mv ~/.vimrc ~/.vimrc__old
 ln -s $dir/vimrc  ~/.vimrc
 mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undo
-curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > ~/.vim/phpctags
-chmod +x ~/.vim/phpctags
+curl -S http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctags
+chmod +x $dir/phpctags
 EOF;
 }
 
@@ -69,8 +70,13 @@ function run_cmds($cmds){
     }
 }
 
-define('_HOME',chop(system('echo $HOME')));
-define('INST_SHELL',get_inst_shell());
+e("Setup for 1. Single user  ( put vim in your home directory )  or 2. Multiple users  (put vim in /usr/loca/ directory) ? [1/2]   ");
+$yorn = read_stdin();
+if($yorn == '1'){
+    define('_HOME',getenv('HOME').'/.vim');
+}else if($yorn == '2'){
+    define('_HOME','/usr/local/vim/');
+}
 e("Process vim setup  ! [y/n] !");
 $yorn = read_stdin();
 if($yorn == 'y'){
