@@ -16,8 +16,9 @@ function get_vim_cmd(){
     }else{
         e("curl -S# $git_dir/bundles.vim > $dir/bundles.vim",'run');
     }
-
-
+    if(!is_file("$dir/phpctags")){
+        e("curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctags",'run');
+    }
 
     return <<<EOF
 git clone https://github.com/gmarik/Vundle.vim.git $dir/bundle/vundle/
@@ -33,7 +34,6 @@ ln -s $dir/vimrc  ~/.vimrc
 ln -s $dir/tmux.conf  ~/.tmux.conf
 mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undo
-curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctags
 chmod +x $dir/phpctags
 EOF;
 
