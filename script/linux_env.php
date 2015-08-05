@@ -32,6 +32,7 @@ mv ~/.tmux.conf ~/.tmux.conf__old
 mv ~/.tmux-osx.conf ~/.tmux-osx.conf__old
 ln -s $dir/vimrc  ~/.vimrc
 ln -s $dir/tmux.conf  ~/.tmux.conf
+ln -s $dir/tmux-osx.conf  ~/.tmux-osx.conf
 mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undo
 chmod +x $dir/phpctags
