@@ -112,9 +112,6 @@ if($yorn == 'y'){
     $cmd = "mv ~/.zshrc ~/.zshrc__old;ln -s "._HOME."/zshrc ~/.zshrc";
     e($cmd,'run');
     e('cd '._HOME.';git clone git://github.com/joelthelion/autojump.git;cd autojump;./install.py','run');
-    e('curl -S# https://raw.githubusercontent.com/joelthelion/autojump/master/bin/autojump.zsh -O > '._HOME.'/autojump.zsh','run');
-    e("sed -i 's/--add/-a/g' "._HOME.'/autojump.zsh','run');
-    e('sudo cp '._HOME.'/autojump.zsh '.'/etc/profile.d/autojump.zsh','run');
 
 }
 
@@ -125,7 +122,8 @@ if($yorn == 'y'){
 }
 
 e("Install hs_Dbee !");
-$cmd= "mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_dBee.phar  > /usr/local/bin/hs_Dbee.phar"; 
+$dBee= '/usr/local/bin/hs_Dbee.phar';
+$cmd= "mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_dBee.phar  > $dBee;chmod +x $dBee"; 
 e($cmd,'run');
 
 # ln -s $dir/tmux.conf ~/.tmux.conf`;
