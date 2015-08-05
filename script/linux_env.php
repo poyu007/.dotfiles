@@ -88,7 +88,7 @@ function inst_zsh(){
     $cmd = <<<EOF
 curl -S#  http://ftp.lfs-matrix.net/pub/blfs/conglomeration/zsh/$zsh.tar.bz2  >  $dir/$zsh.tar.bz2
 cd $dir;tar xvjf $zsh.tar.bz2;cd $dir/$zsh;./configure && make && sudo make install
-rd -rf $dir/$zsh.*
+rm -rf $dir/$zsh.*
 EOF;
     run_cmds($cmd);
 
