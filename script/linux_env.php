@@ -11,11 +11,6 @@ function get_vim_cmd(){
     $dir=_HOME;
     $git_dir='https://raw.githubusercontent.com/poyu007/heisoo_env/master/dotfiles';
 
-    if(defined('_SHARE')){
-        e("curl -S# $git_dir/share_bundles.vim > $dir/bundles.vim",'run');
-    }else{
-        e("curl -S# $git_dir/bundles.vim > $dir/bundles.vim",'run');
-    }
     if(!is_file("$dir/phpctags")){
         e("curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctags",'run');
     }
@@ -27,14 +22,13 @@ curl -S# $git_dir/vimrc > $dir/vimrc
 curl -S# $git_dir/tmux.conf > $dir/tmux.conf
 curl -S# $git_dir/tmux-osx.conf > $dir/tmux-osx.conf
 curl -S# $git_dir/zshrc > $dir/zshrc
+curl -S# $git_dir/bundles.vim > $dir/bundles.vim
 mv ~/.vimrc ~/.vimrc__old
 mv ~/.tmux.conf ~/.tmux.conf__old
 mv ~/.tmux-osx.conf ~/.tmux-osx.conf__old
 ln -s $dir/vimrc  ~/.vimrc
 ln -s $dir/tmux.conf  ~/.tmux.conf
 ln -s $dir/tmux-osx.conf  ~/.tmux-osx.conf
-mkdir -p ~/.vim/backups
-mkdir -p ~/.vim/undo
 chmod +x $dir/phpctags
 EOF;
 

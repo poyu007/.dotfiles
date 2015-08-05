@@ -1,31 +1,23 @@
-""""""""""""""""""""""""""""
-" Vundle
-""""""""""""""""""""""""""""
-
-if filereadable(glob("/usr/local/vim/bundles.vim")) 
-    source  /usr/local/vim/bundles.vim
-elseif filereadable(glob("~/.vim/bundles.vim"))
+if !empty(glob("~/.vim/bundles.vim"))
     source  ~/.vim/bundles.vim
+elseif !empty(glob("/usr/local/vim/bundles.vim"))
+    source /usr/local/vim/bundles.vim
 endif
-
 "filetype plugin indent on
-"
 
 " Platform
+
 function! MySys()
 	if has("win32") || has("win64")
 	return "windows"
 elseif has("mac")
 	return "mac"
-else
-	return "linux"
 endif
 endfunction
-vmap <C-x> :!pbcopy<CR>  
-vmap <C-c> :w !pbcopy<CR><CR> 
+" ------------------------
+vmap <C-x> :!pbcopy<CR>
+vmap <C-c> :w !pbcopy<CR><CR>
 
-"aaaa 
-""ddddd 
 " Move Backup Files to ~/.vim/backups/
 set backupdir=~/.vim/backups
 set backup
@@ -108,9 +100,8 @@ if has("gui_macvim")	" 取消默认的快捷键
 	set guioptions-=T 
 
 endif
-
 " autocmd
-autocmd! bufwritepost .vimrc source ~/.vimrc
+" autocmd! bufwritepost .vimrc source ~/.vimrc
 " autocmd! VimEnter *  :silent !~/.vim/phpctags -R *
 
 " filetype

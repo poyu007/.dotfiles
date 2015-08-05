@@ -79,8 +79,15 @@ endif
 """"""""""""""""""""""""""""
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+
+if isdirectory("/usr/local/vim/vundle")
+    set rtp+=/usr/local/vim/bundle/vundle/
+    call vundle#rc('/usr/local/vim/bundle')
+else
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+
+endif
 
 
 """"""""""""""""""""""""""""
