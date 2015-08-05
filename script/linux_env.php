@@ -27,9 +27,9 @@ chmod +x $dir/phpctags
 EOF;
 
     if(is_defined('_SHARE')){
-        e("curl -S# $git_dir/share_bundles.vim > $dir/bundles.vim".'yellow');
+        e("curl -S# $git_dir/share_bundles.vim > $dir/bundles.vim".'run');
     }else{
-        e("curl -S# $git_dir/bundles.vim > $dir/bundles.vim",'yellow');
+        e("curl -S# $git_dir/bundles.vim > $dir/bundles.vim",'run');
     }
     
 }
