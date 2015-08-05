@@ -114,7 +114,7 @@ if($yorn == 'y'){
     $cmd= "curl -L# http://install.ohmyz.sh > ".getenv('HOME')."/install.ohmyz.sh;sh ".getenv('HOME')."/install.ohmyz.sh"; 
     e($cmd,'run');
     $cmd = "mv ~/.zshrc ~/.zshrc__old;ln -s "._HOME."/zshrc ~/.zshrc";
-    e('cd '_HOME.';git clone git://github.com/joelthelion/autojump.git');
+    e('cd '._HOME.';git clone git://github.com/joelthelion/autojump.git');
     e($cmd,'run');
 
 }
