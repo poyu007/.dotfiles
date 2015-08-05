@@ -34,7 +34,6 @@ mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undo
 curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctags
 chmod +x $dir/phpctags
-curl -S# https://raw.githubusercontent.com/wting/autojump/master/bin/autojump.zsh > $dir/autojump.zsh
 EOF;
 
 }
@@ -103,6 +102,9 @@ if($yorn == 'y'){
     $cmd = "mv ~/.zshrc ~/.zshrc__old;ln -s "._HOME."/zshrc ~/.zshrc";
     e($cmd,'run');
     e('cd '._HOME.';git clone git://github.com/joelthelion/autojump.git;cd autojump;./install.py','run');
+    e('curl -S# https://raw.githubusercontent.com/joelthelion/autojump/master/bin/autojump.zsh -O > '._HOME.'/autojump.zsh','run');
+    e("sed -i 's/--add/-a/g' "._HOME.'/autojump.zsh','run');
+    e('sudo cp '._HOME.'/autojiump '.'/etc/profile.d/autojump.zsh','run');
 
 }
 
