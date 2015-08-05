@@ -24,9 +24,11 @@ git clone https://github.com/gmarik/Vundle.vim.git $dir/bundle/vundle/
 git clone https://github.com/altercation/vim-colors-solarized.git $dir/bundle/vim-colors-solarized/
 curl -S# $git_dir/vimrc > $dir/vimrc
 curl -S# $git_dir/tmux.conf > $dir/tmux.conf
+curl -S# $git_dir/tmux-osx.conf > $dir/tmux-osx.conf
 curl -S# $git_dir/zshrc > $dir/zshrc
 mv ~/.vimrc ~/.vimrc__old
 mv ~/.tmux.conf ~/.tmux.conf__old
+mv ~/.tmux-osx.conf ~/.tmux-osx.conf__old
 ln -s $dir/vimrc  ~/.vimrc
 ln -s $dir/tmux.conf  ~/.tmux.conf
 mkdir -p ~/.vim/backups
