@@ -55,7 +55,6 @@ function inst_ctag(){
 }
 function get_zsh_cmd(){
     $path =_HOME.'/tmp_shell';
-    $home =_HOME;
 
     return <<<EOF
 mkdir -p $path
@@ -101,18 +100,18 @@ e("Process zsh jump setup   ! [y/n] !");
 $yorn = read_stdin();
 if($yorn == 'y'){
     if(INST_SHELL == 'brew'){
-        $cmds = get_zsh_cmd($_ENV['HOME']);
+        $cmds = get_zsh_cmd();
         run_cmds($cmds);
     }elseif(INST_SHELL == 'apt-get'){
         $cmd ="sudo apt-get install zsh git-core";
         e($cmd,'run');
-        $cmd= "curl -L# http://install.ohmyz.sh > ~/.vim/install.ohmyz.sh;sh ~/.vim/install.ohmyz.sh"; 
-        e($cmd,'run');
     }elseif(INST_SHELL == 'yum' ){
-        $cmd=('sudo yum install zsh');
+        $cmd=('sudo yum install zsh; sudo yum install autojump');
         e($cmd,'run');
     }
 
+    $cmd= "curl -L# http://install.ohmyz.sh > "._HOME."/install.ohmyz.sh;sh "._HOME."/install.ohmyz.sh"; 
+    e($cmd,'run');
     $cmd = "mv ~/.zshrc ~/.zshrc__old;ln -s "._HOME."/zshrc ~/.zshrc";
     e($cmd,'run');
 
