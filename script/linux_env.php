@@ -32,6 +32,7 @@ mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undo
 curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctags
 chmod +x $dir/phpctags
+curl -S# https://raw.githubusercontent.com/wting/autojump/master/bin/autojump.zsh > $dir/autojump.zsh
 EOF;
 
 }
@@ -110,9 +111,10 @@ if($yorn == 'y'){
         e($cmd,'run');
     }
 
-    $cmd= "curl -L# http://install.ohmyz.sh > "._HOME."/install.ohmyz.sh;sh "._HOME."/install.ohmyz.sh"; 
+    $cmd= "curl -L# http://install.ohmyz.sh > ".getenv('HOME')."/install.ohmyz.sh;sh ".getenv('HOME')."/install.ohmyz.sh"; 
     e($cmd,'run');
     $cmd = "mv ~/.zshrc ~/.zshrc__old;ln -s "._HOME."/zshrc ~/.zshrc";
+    e('cd '_HOME.';git clone git://github.com/joelthelion/autojump.git');
     e($cmd,'run');
 
 }
