@@ -120,7 +120,7 @@ if($yorn == 'y'){
 
 e("Install hs_Dbee !");
 $dBee= '/usr/local/bin/hs_Dbee.phar';
-$cmd= "mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_dBee.phar  > $dBee;chmod +x $dBee"; 
+$cmd= "sudo mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_dBee.phar  > $dBee;chmod +x $dBee"; 
 e($cmd,'run');
 
 # ln -s $dir/tmux.conf ~/.tmux.conf`;
