@@ -9,7 +9,7 @@ function e($p,$code ='green'){
         'yellow' => "\033[0;33m",
     );
 
-    if($code == 'reod'){
+    if($code == 'red'){
         echo $color[$code].'Error:  '.$p."\n".$color['white'];
         exit;
     }else if(is_array($p)){
