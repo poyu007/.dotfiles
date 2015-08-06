@@ -370,3 +370,30 @@ function! XTermPasteBegin()
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
+
+
+
+
+
+"sync file funciton
+function! g:Sync_file()
+
+    if g:MyTargetFilePath == ''
+        echoerr 'Nothing can be sync!'
+        return
+    endif
+
+    silent !clear
+    silent w
+    let s:from = expand('%:p')
+    let s:cmd = 'hs_dBee.phar -file '. s:from 
+    echo s:cmd
+    execute "!". s:cmd
+    "system(cmd)
+endfunction
+
+let g:MyTargetFilePath = 'test'
+
+nmap <silent><leader>w :call g:Sync_file() <cr>
+    
+

@@ -1,4 +1,5 @@
 <?php
+define('_WHICH','not |no ');
 
 function e($p,$code ='green'){
 
@@ -38,36 +39,35 @@ function get_inst_shell(){
     $cmd_out = exec($cmd);
     $shell ='';
 
-    if (!preg_match("/not |no /i",$cmd_out)) {
+    if (!preg_match('/'._WHICH.'/i',$cmd_out)) {
         $shell = 'apt-get';
     }
 
     $cmd="which brew";
     $cmd_out = exec($cmd);
 
-    if (!preg_match("/not |no /i",$cmd_out)) {
+    if (!preg_match('/'._WHICH.'/i',$cmd_out)) {
         $shell = 'brew';
     }
 
     $cmd="which yum";
     $cmd_out = exec($cmd);
 
-    if (!preg_match("/not |no /i",$cmd_out)) {
+    if (!preg_match('/'._WHICH.'/i',$cmd_out)) {
         $shell = 'yum';
     }
     return $shell;
 }
 function webCall(){
     $cmd="which wget";
-    $cmd_out = chop(`$cmd`);
+    $cmd_out = exec($cmd);
     $shell ='';
-    if (!preg_match("/no /i",$cmd_out)) {
+    if (!preg_match('/'._WHICH.'/i',$cmd_out)) {
         $shell = 'wget';
     }
     $cmd="which curl";
-    $cmd_out = chop(`$cmd`);
-
-    if (!preg_match("/no /i",$cmd_out)) {
+    $cmd_out = exec($cmd);
+    if (!preg_match('/'._WHICH.'/i',$cmd_out)) {
         $shell = 'curl';
     }
     return $shell;
