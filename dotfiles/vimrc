@@ -45,7 +45,7 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 
-" 行号栏的宽度
+" 行号栏的宽度 "
 set numberwidth=4
 " 禁止自动换行
 set nowrap
@@ -74,12 +74,10 @@ if has("gui_running") || has("gui_macvim")
 	let g:colors_name="obsidian2"
 else
 "	colorscheme molokai
-"
     let g:solarized_termcolors=256
     syntax enable
     set background=dark
     colorscheme solarized
-"
 endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype and syntax
@@ -97,7 +95,7 @@ if has("gui_macvim")	" 取消默认的快捷键
 	" 设置背影透明度
 	set transparency=9
 	" 隐藏工具栏
-	set guioptions-=T 
+	set guioptions-=T
 
 endif
 " autocmd
@@ -162,9 +160,9 @@ nmap <silent> <leader>tl <Plug>TaskList
 let g:tagbar_width = 20
 let g:tagbar_singleclick = 1
 let g:tagbar_iconchars = ['▾', '▸']
-if filereadable(glob("/usr/local/bin/ctags")) 
+if filereadable(glob("/usr/local/bin/ctags"))
     let g:tagbar_ctags_bin='/usr/local/bin/ctags'
-elseif filereadable(glob("/usr/bin/ctags")) 
+elseif filereadable(glob("/usr/bin/ctags"))
     let g:tagbar_ctags_bin='/usr/bin/ctags'
 endif
 
@@ -184,7 +182,7 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = ':CtrlPMRU'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-let g:ctrlp_user_command = 'find %s -type f'  
+let g:ctrlp_user_command = 'find %s -type f'
 
 let g:Powerline_symbols = 'compatible'
 
@@ -214,7 +212,7 @@ let g:html5_aria_attributes_complete = 0
 let g:aria_attributes_complete = 0
 
 
-" " easymotion 
+" " easymotion
 " let g:EasyMotion_smartcase = 1
 " let g:EasyMotion_leader_key = ','
 " let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
@@ -230,9 +228,9 @@ let g:aria_attributes_complete = 0
 
 "xnoremap p pgvy
 
-"phpctags 
+"phpctags
 let g:tagbar_phpctags_bin='~/.vim/phpctags'
-let g:tagbar_phpctags_memory_limit = '512M' 
+let g:tagbar_phpctags_memory_limit = '512M'
 " neosnippet Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -369,6 +367,6 @@ function! XTermPasteBegin()
       endfunction
 
 
-if filereadable(glob("~/.vimrc.local")) 
+if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif

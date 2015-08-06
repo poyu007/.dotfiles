@@ -4,6 +4,7 @@ include 'inc/basic.inc';
 include 'inc/shell_def.inc';
 $conf = is_file(__DIR__.'/inc/hs_conf.inc') ? __DIR__.'/inc/hs_conf.inc' : __DIR__.'/inc/conf.inc';
 include($conf);
+
 // check user config  exist
 //
 //a

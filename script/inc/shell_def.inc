@@ -111,7 +111,6 @@ function conf_setting($setting,$ary = array()){
 }
 
 function init($init_flag = 0){
-    keygen();
     e("\n------------------------------  Client Bee Setup  -------------------------------\n",'yellow');
 
     e("Process Heisoo Desk bee  script configure setup ! [y/n] !");
@@ -128,6 +127,7 @@ function init($init_flag = 0){
         e('type y  if you wanna set up your configuration !','red');
     }
 
+    keygen($user);
     e("\n--------------------------------  End Setup  ------------------------------------\n",'yellow');
 }
 
@@ -136,7 +136,7 @@ function run_git_script($url){
     system("curl -L $url | php ",$out);
     e($out);
 }
-function keygen(){
+function keygen($user){
 
 
     e("\n---------------------------------  important  ---------------------------------\n",'yellow');
@@ -147,9 +147,9 @@ function keygen(){
         //$pw = read_stdin();
         $path=getenv('HOME');
 
-        $cmd = "scp $path/.ssh/id_rsa $path/.ssh/id_rsa.pub josh@dev.heisoo.com:~/.ssh/";
+        $cmd = "scp $path/.ssh/id_rsa $path/.ssh/id_rsa.pub $user@dev.heisoo.com:~/.ssh/";
         e($cmd,'run');
-        $cmd = 'ssh -t josh@dev.heisoo.com  "bee -key"';
+        $cmd = 'ssh -t '.$user.'@dev.heisoo.com  "bee -key"';
         e($cmd,'run');
 
         //system($cmd, $out);
