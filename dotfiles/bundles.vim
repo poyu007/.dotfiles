@@ -122,7 +122,7 @@ Bundle 'FuzzyFinder'
 
 "Bundle 'benmills/vimux'
 
-" CTRL+P 
+" CTRL+P
 Bundle 'mru.vim'
 Bundle 'ctrlp.vim'
 
@@ -149,24 +149,30 @@ Bundle 'TaskList.vim'
 " Solve tab  problem  http://www.haodaima.net/art/2464523
 Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'tpope/vim-fugitive'
-    
+
 " Bundle 'SirVer/ultisnips'
 "Bundle 'Shougo/neocomplete'
 Bundle 'Shougo/neocomplcache'
-" snippt package 
+" snippt package
 Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/neosnippet-snippets'
-" html css snippt 
+" html css snippt
 Bundle 'mattn/emmet-vim'
 Bundle 'tpope/vim-surround'
 "Bundle 'godlygeek/tabular'
 "Bundle 'AutoClose'
 "Bundle 'ervandew/supertab'
-" super fast motion move 
+" super fast motion move
 Bundle 'rking/ag.vim'
 " Bundle 'dyng/ctrlsf.vim'
 "Bundle 'xolox/vim-easytags'
 Bundle 'yonchu/accelerated-smooth-scroll'
+Bundle 'benmills/vimux'
+"Bundle 'MattesGroeger/vim-bookmarks'
+"Bundle 'kshenoy/vim-signature'
+"Bundle 'vim-scripts/TagHighlight'
+"Bundle 'xolox/vim-easytags'
+
 filetype plugin indent on
 
 

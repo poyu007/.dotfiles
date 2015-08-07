@@ -9,7 +9,6 @@ function e($p,$code ='green'){
         'red' => "\033[0;31m",
         'yellow' => "\033[0;33m",
     );
-
     if($code == 'red'){
         echo $color[$code].'Error:  '.$p."\n".$color['white'];
         exit;
@@ -22,7 +21,8 @@ function e($p,$code ='green'){
         $color['green'].$out.$color['white']."\n";
     }else{
         echo $color[$code].' '.$p.$color['white']."\n";
-   }
+    }
+
 }
 
 function read_stdin()

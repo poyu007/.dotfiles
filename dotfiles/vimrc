@@ -60,10 +60,13 @@ set matchpairs=(:),{:},[:],<:>
 set whichwrap=b,s,<,>,[,]
 set foldmethod=marker
 set diffopt+=iwhite,vertical " 忽略缩进的差异
+set tags=~/.vim/tags
+:set shortmess=a
 
 """"""""""""""""""""""""""""""""""""""""
 " vim  UI
 """"""""""""""""""""""""""""""""""""""""
+
 "" color scheme
 " http://fideloper.com/mac-vim-tmux
 "
@@ -74,10 +77,13 @@ if has("gui_running") || has("gui_macvim")
 	let g:colors_name="obsidian2"
 else
 "	colorscheme molokai
+
     let g:solarized_termcolors=256
     syntax enable
+
     set background=dark
     colorscheme solarized
+
 endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype and syntax
@@ -376,7 +382,7 @@ endif
 
 
 "sync file funciton
-function! g:Sync_file()
+function! g:Sync(arg)
 
     if g:MyTargetFilePath == ''
         echoerr 'Nothing can be sync!'
@@ -386,14 +392,60 @@ function! g:Sync_file()
     silent !clear
     silent w
     let s:from = expand('%:p')
-    let s:cmd = 'hs_dBee.phar -file '. s:from 
-    echo s:cmd
-    execute "!". s:cmd
-    "system(cmd)
+
+    if a:arg == 'file'
+        let s:cmd = 'hs_dBee.phar -file '. s:from
+        echo s:cmd
+    endif
+
+    if a:arg == 'all'
+        let s:cmd = 'hs_dBee.phar -all '. s:from
+        echo s:cmd
+    endif
+    "execute ":ConqueTermTab ". s:cmd
+    call VimuxRunCommand(s:cmd)
+    execute ":redraw!"
+    set background=dark
+    colorscheme solarized
+
+
+    "system(s:cmd)
 endfunction
 
-let g:MyTargetFilePath = 'test'
+nmap <silent><leader>sf :call g:Sync('file')<cr><CR>
+nmap <silent><leader>sa :call g:Sync('all') <cr>
+nmap <silent><leader>cl :VimuxCloseRunner <cr>
 
-nmap <silent><leader>w :call g:Sync_file() <cr>
-    
+nmap <silent><leader>w :call Write() <cr>
+nmap <silent><leader>sv :source ~/.vimrc <cr>
 
+function! g:Write()
+
+    let s:from = expand('%:p')
+     silent w
+    let s:cmd = 'hs_dBee.phar -tag '. s:from
+    echo s:cmd
+    execute "PT ".s:cmd
+    execute ':StripWhitespace'
+    "execute ""
+
+
+
+endfunction
+
+
+
+  fun! s:PraeceptumTacet(cmd)
+      silent let f = systemlist(a:cmd)
+      if v:shell_error
+          echohl Error
+          echom "ERROR #" . v:shell_error
+          echohl WarningMsg
+          for e in f
+              echom e
+          endfor
+          echohl None
+      endif
+  endfun
+
+  command! -nargs=+ PT call s:PraeceptumTacet(<q-args>)

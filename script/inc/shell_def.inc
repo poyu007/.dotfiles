@@ -5,12 +5,13 @@ define('PCONF','.pconf'); // proj config file name
 define('UC_LOC',getenv('HOME').'/'.UCONF);
 define("RSYNC_CMD",'rsync -raiv ');
 define('VER_URL','https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_bee.ver');
+define('','~/.vim/phpctags');
 
 #define("RSYNC_CMD",'rsync -raiv --delete');
 date_default_timezone_set('Asia/Shanghai');
 
 function check_version(){
-    $date1=strtotime(date('Ymd')); 
+    $date1=strtotime(date('Ymd'));
     $date2=strtotime(_UPDATE_TIME);
     $days=round(($date2 - $date1)/3600/24);
     if($days < -3 ){
@@ -31,7 +32,10 @@ function check_version(){
 }
 
 function upgrade(){
-    $cmd= "mkdir -p /usr/local/bin/;curl -s https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_dBee.phar  > /usr/local/bin/hs_dBee.phar"; 
+    $git_url ='https://raw.githubusercontent.com/poyu007/heisoo_env/master';
+    $cmd= "mkdir -p /usr/local/bin/;curl -s $git_url/build/hs_dBee.phar  > /usr/local/bin/hs_dBee.phar";
+    system($cmd);
+    $cmd ="curl -s $git_url/dotfiles/vimrc > ~/.vim/vimrc";
     system($cmd);
 }
 
@@ -42,7 +46,7 @@ function e_def(){
 }
 
 function loadConf($conf){
-    
+
     if(file_exists($conf)){
 
         $content = json_decode(file_get_contents($conf),true);
@@ -142,7 +146,7 @@ function init($init_flag = 0){
         $user = read_stdin();
         e("Git Directory path ?  now => ".getenv('PWD'));
         $git_dir = read_stdin();
-        if(!empty($user) and !empty($git_dir)) 
+        if(!empty($user) and !empty($git_dir))
             conf_setting(UC_LOC,array('user' => $user ,'git_dir' => $git_dir));
     }else{
         e('type y  if you wanna set up your configuration !','red');
@@ -181,7 +185,7 @@ function keygen($user){
 function remote_exec($file,$arg = _PARA){
     $file = realpath($file);
     if(!is_executable($file)){
-        e("flle can't execution",'red'); 
+        e("flle can't execution",'red');
     }
     $rela_file = get_newpos($file);
 
@@ -217,7 +221,7 @@ function proj_file($file){
     system($sync_cmd,$res);
     e($res);
 }
-function get_newpos($file){
+function get_newpos($file){    
     $rela_path = substr($file,strlen(_GIT_DIR)+1);
     $raw = explode("/", $rela_path);
     unset($raw[0]);

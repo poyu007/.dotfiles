@@ -119,7 +119,7 @@ if($yorn == 'y'){
 }
 
 e("Install hs_Dbee !");
-$dBee= '/usr/local/bin/hs_Dbee.phar';
+$dBee= '/usr/local/bin/hs_dBee.phar';
 $cmd= "sudo mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_dBee.phar  > ./hs_dBee.phar;sudo mv ./hs_dBee.phar $dBee;sudo chmod +x $dBee"; 
 e($cmd,'run');
 
