@@ -117,16 +117,6 @@ autocmd BufNewFile,BufRead *.scss set ft=scss
 autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 textwidth=80
 autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" map
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" 设置 <leader> 快捷键
-let mapleader=","
-let g:mapleader=","
-
-map <silent> <leader>rc :tabe ~/.vimrc<cr>
-map <leader>q :q<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin setting
@@ -185,7 +175,7 @@ nnoremap <leader>sv :ViewSession<cr>
 " ctrl-p MRU + ctrlp
 let g:ctrlp_working_path_mode=2 " .git/ .hg/ .svn/ .bzr/ _darcs/ or your own marker_dir/ marker_file
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = ':CtrlPMRU'
+let g:ctrlp_cmd = ':CtrlP'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 let g:ctrlp_user_command = 'find %s -type f'
@@ -412,12 +402,7 @@ function! g:Sync(arg)
     "system(s:cmd)
 endfunction
 
-nmap <silent><leader>sf :call g:Sync('file')<cr><CR>
-nmap <silent><leader>sa :call g:Sync('all') <cr>
-nmap <silent><leader>cl :VimuxCloseRunner <cr>
 
-nmap <silent><leader>w :call Write() <cr>
-nmap <silent><leader>sv :source ~/.vimrc <cr>
 
 function! g:Write()
 
@@ -428,8 +413,6 @@ function! g:Write()
     execute "PT ".s:cmd
     execute ':StripWhitespace'
     "execute ""
-
-
 
 endfunction
 
@@ -449,3 +432,22 @@ endfunction
   endfun
 
   command! -nargs=+ PT call s:PraeceptumTacet(<q-args>)
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" map
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" 设置 <leader> 快捷键
+
+let mapleader = "\<Space>"
+map <silent> <leader>rc :tabe ~/.vimrc<cr>
+map <leader>q :q<cr>
+nmap <silent><leader>vi :source ~/.vimrc <cr>
+nmap <silent><leader>w :call Write() <cr>
+nmap <silent><leader>sf :call g:Sync('file')<cr><CR>
+nmap <silent><leader>sa :call g:Sync('all') <cr>
+nmap <silent><leader>cw :VimuxCloseRunner <cr>
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+nnoremap <Leader>p :CtrlPMRU<CR>
