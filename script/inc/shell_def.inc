@@ -71,6 +71,15 @@ function saveConf($conf,$json){
 }
 
 
+function nerdtreeBookMark($proj,$path){
+    $NERDtreeConf = getenv('HOME'). '/.NERDTreeBookmarks';
+    $content = $proj.' '.$path."\n";
+    e($content);
+    file_put_contents($NERDtreeConf,$content,FILE_APPEND | LOCK_EX);
+
+}
+
+
 function define_proj_dir($git_dir,$user,$now_dir){
 
     $len = strlen($git_dir);
@@ -82,15 +91,19 @@ function define_proj_dir($git_dir,$user,$now_dir){
         e('Not in project directory  ','red');
     }
 
-    $target='/home/'.$user._PROJ_DIR.'/'.$raw[0];
-    $pconf_loc = $git_dir.'/'.$raw[0].'/'.PCONF;
+    $proj = $raw[0];
+
+    $target='/home/'.$user._PROJ_DIR.'/'.$proj;
+    $pconf_loc  = $git_dir.'/'.$proj.'/'.PCONF;
+    $pconf_path = $git_dir.'/'.$proj.'/';
 
     if(!file_exists($pconf_loc)){
-        proj_conf_setting($target,$pconf_loc,$raw[0]);
+        nerdtreeBookMark($proj,$pconf_path);
+        proj_conf_setting($target,$pconf_loc,$proj);
     }else{
         $pcf= loadConf($pconf_loc);
         define('PCONF_LOC',$pconf_loc);
-        define('PCONF_PATH',$git_dir.'/'.$raw[0].'/');
+        define('PCONF_PATH',$git_dir.'/'.$proj.'/');
         define('_TARGET',$pcf['target']);
     }
 
@@ -221,7 +234,7 @@ function proj_file($file){
     system($sync_cmd,$res);
     e($res);
 }
-function get_newpos($file){    
+function get_newpos($file){
     $rela_path = substr($file,strlen(_GIT_DIR)+1);
     $raw = explode("/", $rela_path);
     unset($raw[0]);

@@ -124,15 +124,6 @@ autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " NREDTree setting
-let g:NERDTreeWinSize = 20
-nmap <silent> <leader>nt :call OpenNERDTree()<cr>
-
-function! OpenNERDTree()
-	" let tmp = g:eighties_minimum_width
-	let g:eighties_minimum_width = 20
-	:NERDTree
-	" let g:eighties_minimum_width = tmp
-endfunction
 
 " eighties
 let g:eighties_enabled = 1
@@ -468,8 +459,8 @@ let g:netrw_liststyle=3
 
 " 设置 <leader> 快捷键
 
-map <silent> <leader>evi :tabe ~/.vimrc<cr>
-map <leader>q :q<cr>
+map <silent> <leader>.v :tabe ~/.vimrc<cr>
+map <leader>q :wq<cr>
 nmap <silent><leader>r :source ~/.vimrc <cr>
 nmap <silent><leader>w :call Write() <cr>
 nmap <silent><leader>f :call g:Sync('file')<cr><CR>
@@ -478,3 +469,8 @@ nmap <silent><leader>x :VimuxCloseRunner <cr>
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 nnoremap <Leader>p :CtrlPMRU<CR>
+imap jj <ESC>
+"----------------- NERD tree setting
+nmap <silent> <leader>ls :NERDTreeToggle<CR>
+let NERDTreeShowBookmarks=1
+"let g:NERDTreeBookmarksFile = "~/.vim/.bookmark"

@@ -125,7 +125,7 @@ Bundle 'FuzzyFinder'
 " CTRL+P
 Bundle 'mru.vim'
 Bundle 'ctrlp.vim'
-Bundle 'tacahiroy/ctrlp-funky'
+"Bundle 'tacahiroy/ctrlp-funky'
 "Bundle 'voronkovich/ctrlp-nerdtree.vim'
 
 Bundle 'Lokaltog/vim-powerline'
@@ -143,6 +143,7 @@ Bundle 'mihaifm/vimpanel'
 Bundle 'majutsushi/tagbar'
 Bundle 'vim-scripts/tagbar-phpctags'
 Bundle 'scrooloose/nerdtree'
+Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'FencView.vim'
 
 Bundle 'The-NERD-Commenter'
