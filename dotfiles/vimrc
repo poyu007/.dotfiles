@@ -6,6 +6,7 @@ endif
 "filetype plugin indent on
 
 " Platform
+let mapleader = "\<Space>"
 
 function! MySys()
 	if has("win32") || has("win64")
@@ -175,12 +176,38 @@ nnoremap <leader>sv :ViewSession<cr>
 " ctrl-p MRU + ctrlp
 let g:ctrlp_working_path_mode=2 " .git/ .hg/ .svn/ .bzr/ _darcs/ or your own marker_dir/ marker_file
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = ':CtrlP'
+let g:ctrlp_cmd = ':CtrlP ~/src'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe" Windows
 let g:ctrlp_user_command = 'find %s -type f'
-
+let g:ctrlp_custom_ignore = '\v[\/]\.(DS_Storegit|hg|svn|optimized|compiled|node_modules|cache|autojump)$'
 let g:Powerline_symbols = 'compatible'
+let g:ctrlp_user_command = 'find %s -type f'
+let g:ctrlp_dont_split = 'NERD_tree_2'
+if executable('ag')
+    " Use Ag over Grep
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+
+    let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+                \ --ignore .git
+                \ --ignore .svn
+                \ --ignore .hg
+                \ --ignore tags
+                \ --ignore .ssh
+                \ --ignore .autojump
+                \ --ignore .cache
+                \ --ignore .composer
+                \ --ignore .vim
+                \ --ignore .DS_Store
+                \ --ignore .oh-my-zsh
+                \ --ignore "**/*.pyc"
+                \ -g ""'
+
+endif
+"let g:ctrlp_user_command = 'find %s -type f | grep -v "`cat .ctrlpignore`"'
 
 " UltiSnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -210,7 +237,6 @@ let g:aria_attributes_complete = 0
 
 " " easymotion
 " let g:EasyMotion_smartcase = 1
-" let g:EasyMotion_leader_key = ','
 " let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 " map <Leader><leader>h <Plug>(easymotion-linebackward)
 " " map <Leader><Leader>j <Plug>(easymotion-j)
@@ -438,16 +464,17 @@ endfunction
 " map
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:netrw_liststyle=3
+
 " 设置 <leader> 快捷键
 
-let mapleader = "\<Space>"
-map <silent> <leader>rc :tabe ~/.vimrc<cr>
+map <silent> <leader>evi :tabe ~/.vimrc<cr>
 map <leader>q :q<cr>
-nmap <silent><leader>vi :source ~/.vimrc <cr>
+nmap <silent><leader>r :source ~/.vimrc <cr>
 nmap <silent><leader>w :call Write() <cr>
-nmap <silent><leader>sf :call g:Sync('file')<cr><CR>
-nmap <silent><leader>sa :call g:Sync('all') <cr>
-nmap <silent><leader>cw :VimuxCloseRunner <cr>
+nmap <silent><leader>f :call g:Sync('file')<cr><CR>
+nmap <silent><leader>a :call g:Sync('all') <cr>
+nmap <silent><leader>x :VimuxCloseRunner <cr>
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 nnoremap <Leader>p :CtrlPMRU<CR>
