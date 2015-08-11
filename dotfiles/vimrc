@@ -486,7 +486,7 @@ nmap <c-p> :call CtrlPro()<cr>
 map <silent> <leader>evi :e ~/.vimrc<cr>
 map <leader>q :wq<cr>
 nmap <silent><leader>r :source ~/.vimrc <cr>
-nmap <silent><leader>w :call Write() <cr>
+nmap <silent><leader>w :call g:Write() <cr>
 nmap <silent><leader>f :call g:Sync('file')<cr><CR>
 nmap <silent><leader>a :call g:Sync('all') <cr>
 nmap <silent><leader>x :VimuxCloseRunner <cr>
