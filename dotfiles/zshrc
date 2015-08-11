@@ -107,14 +107,41 @@ setopt CDABLE_VARS
 
 
 
-bindkey -v 
-set -o vi
- 
+bindkey -v
+
+#set -o vi
+bindkey "^A"      beginning-of-line                    # ctrl-a  
+bindkey "^E"      end-of-line                          # ctrl-e
+bindkey "^D"      delete-char                          # ctrl-d
+bindkey "^F"      forward-char                         # ctrl-f
+bindkey "^B"      backward-char                        # ctrl-b
 # vi style incremental search
 bindkey '^R' history-incremental-search-backward
 bindkey '^S' history-incremental-search-forward
 bindkey '^k' history-search-backward
 bindkey '^j' history-search-forward
+
+
+
+
+alias h='history'
+alias R='source ~/.zshrc'
+alias viz='vim  ~/.zshrc'
+alias l='ls -la'
+alias ll='ls -AF'
+#alias tmux = 'tmux -2'
+#
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
 
 
 zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
@@ -124,14 +151,16 @@ zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;
 
 
 
-######## zsh UI 
+######## zsh UI
 #
 #
-PROMPT='%{${fg_bold[white]}%}%n%{$reset_color%}%{${fg[white]}%}@% heisoo%{$reset_color%} $(git_prompt_info)%(?,,%{${fg_bold[white]}%}[%?]%{$reset_color%} )%{$fg[yellow]%}%#%{$reset_color%} '
+PROMPT='%{${fg_bold[white]}%}%n%{$reset_color%}%{${fg[white]}%}@% heisoo%{$reset_color%} $(git_prompt_info)%(?,,%{${fg_bold[white]}%}[%?]%{$reset_color%} )%{$fg[yellow]%}%(!.#.$)%{$reset_color%} '
 
-RPROMPT='%{$fg[green]%}%~%{$reset_color%}'
+RPROMPT='%{$fg[green]%}%~ %{$fg[yellow]%}¥%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[cyan]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[cyan]%})%{$fg[red]%}✗%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[cyan]%})%{$fg[yellow]%}%{$reset_color%} %{$fg[red]%}⚑"
+ZSH_THEME_GIT_PROMPT_CLEAN=")%{$fg[white]%} ☀"
+
+

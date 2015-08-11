@@ -80,7 +80,7 @@ endif
 filetype off
 
 
-if isdirectory("/usr/local/vim/vundle")
+if isdirectory("/usr/local/vim/bundle")
     set rtp+=/usr/local/vim/bundle/vundle/
     call vundle#rc('/usr/local/vim/bundle')
 else
