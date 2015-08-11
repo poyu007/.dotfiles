@@ -165,9 +165,9 @@ nnoremap <leader>sc :CloseSession<cr>
 nnoremap <leader>sv :ViewSession<cr>
 
 " ctrl-p MRU + ctrlp
-let g:ctrlp_working_path_mode=2 " .git/ .hg/ .svn/ .bzr/ _darcs/ or your own marker_dir/ marker_file
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_working_path_mode='' " .git/ .hg/ .svn/ .bzr/ _darcs/ or your own marker_dir/ marker_file
 let g:ctrlp_cmd = ':CtrlP ~/src'
+let g:ctrlp_map = '<c-{>'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe" Windows
 let g:ctrlp_user_command = 'find %s -type f'
@@ -421,12 +421,22 @@ endfunction
 
 
 
+
+
 function! g:Write()
 
-    let s:from = expand('%:p')
+    let s:from = expand('%:p:h')
      silent w
-    let s:cmd = 'hs_dBee.phar -tag '. s:from
-    echo s:cmd
+"         let s:cmd = 'hs_dBee.phar -tag '. s:from
+    let s:cmd = '~/.vim/hs_path.phar '. s:from
+    let s:out = system(s:cmd)
+
+    let g:ctrlp_cmd = ':CtrlP '.s:out
+
+    echo g:ctrlp_cmd
+
+    "execute g:ctrlp_cmd
+
     execute "PT ".s:cmd
     execute ':StripWhitespace'
     "execute ""
@@ -434,21 +444,34 @@ function! g:Write()
 endfunction
 
 
+fun! s:PraeceptumTacet(cmd)
+    silent let f = systemlist(a:cmd)
+    if v:shell_error
+        echohl Error
+        echom "ERROR #" . v:shell_error
+        echohl WarningMsg
+        for e in f
+            echom e
+        endfor
+        echohl None
+    endif
+endfun
 
-  fun! s:PraeceptumTacet(cmd)
-      silent let f = systemlist(a:cmd)
-      if v:shell_error
-          echohl Error
-          echom "ERROR #" . v:shell_error
-          echohl WarningMsg
-          for e in f
-              echom e
-          endfor
-          echohl None
-      endif
-  endfun
+command! -nargs=+ PT call s:PraeceptumTacet(<q-args>)
 
-  command! -nargs=+ PT call s:PraeceptumTacet(<q-args>)
+
+function! CtrlPro()
+
+    let s:from = expand('%:p:h')
+    let s:cmd = '~/.vim/hs_path.phar '. s:from
+    let s:out = system(s:cmd)
+    let g:ctrlp_cmd = ':CtrlP '.s:out
+    execute g:ctrlp_cmd
+
+
+endfunction
+
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -458,8 +481,9 @@ endfunction
 let g:netrw_liststyle=3
 
 " 设置 <leader> 快捷键
-
-map <silent> <leader>.v :tabe ~/.vimrc<cr>
+"let g:ctrlp_map = '<c-p>'
+nmap <c-p> :call CtrlPro()<cr>
+map <silent> <leader>evi :e ~/.vimrc<cr>
 map <leader>q :wq<cr>
 nmap <silent><leader>r :source ~/.vimrc <cr>
 nmap <silent><leader>w :call Write() <cr>
@@ -473,4 +497,3 @@ imap jj <ESC>
 "----------------- NERD tree setting
 nmap <silent> <leader>ls :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks=1
-"let g:NERDTreeBookmarksFile = "~/.vim/.bookmark"

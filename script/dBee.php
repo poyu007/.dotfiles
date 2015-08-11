@@ -40,6 +40,7 @@ for($i=3; $i< $num ; $i++){
     $arg .= $argv[$i].' ';
 }
 
+
 if($argv[1] == '-all'){
 
     proj_all();

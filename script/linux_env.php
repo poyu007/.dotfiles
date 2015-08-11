@@ -11,6 +11,8 @@ function get_vim_cmd(){
     $dir=_HOME;
     $git_dir='https://raw.githubusercontent.com/poyu007/heisoo_env/master/dotfiles';
 
+    $build_dir='https://raw.githubusercontent.com/poyu007/heisoo_env/master/build';
+
     if(!is_file("$dir/phpctags")){
         e("curl -S# http://heisoo.oss-cn-qingdao.aliyuncs.com/open/phpctags  > $dir/phpctags",'run');
     }
@@ -20,15 +22,16 @@ git clone https://github.com/gmarik/Vundle.vim.git $dir/bundle/vundle/
 git clone https://github.com/altercation/vim-colors-solarized.git $dir/bundle/vim-colors-solarized/
 curl -S# $git_dir/vimrc > $dir/vimrc
 curl -S# $git_dir/tmux.conf > $dir/tmux.conf
-curl -S# $git_dir/tmux-osx.conf > $dir/tmux-osx.conf
+curl -S# $git_dir/tmux-user.conf > $dir/tmux-user.conf
 curl -S# $git_dir/zshrc > $dir/zshrc
 curl -S# $git_dir/bundles.vim > $dir/bundles.vim
+curl -S# $build_dir/hs_path.phar > $dir/hs_path.phar
 mv ~/.vimrc ~/.vimrc__old
 mv ~/.tmux.conf ~/.tmux.conf__old
-mv ~/.tmux-osx.conf ~/.tmux-osx.conf__old
+mv ~/.tmux-user.conf ~/.tmux-user.conf__old
 ln -s $dir/vimrc  ~/.vimrc
 ln -s $dir/tmux.conf  ~/.tmux.conf
-ln -s $dir/tmux-osx.conf  ~/.tmux-osx.conf
+ln -s $dir/tmux-user.conf  ~/.tmux-user.conf
 chmod +x $dir/phpctags
 EOF;
 
@@ -67,8 +70,7 @@ if(getenv('PWD') == '/usr/local/vim'){
 
     define('_HOME','/usr/local/vim');
     define('_SHARE',true);
-}else if($yorn == '2'){
-
+}else{
     define('_HOME',getenv('HOME').'/.vim');
 }
 e("Process vim setup  ! [y/n] !");
@@ -118,11 +120,10 @@ if($yorn == 'y'){
     system('chsh -s /bin/zsh;source ~/.zshrc');
 }
 
-e("Install hs_Dbee !");
+e("Install heisoo tools!");
 $dBee= '/usr/local/bin/hs_dBee.phar';
-$cmd= "sudo mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_dBee.phar  > ./hs_dBee.phar;sudo mv ./hs_dBee.phar $dBee;sudo chmod +x $dBee"; 
+$cmd= "sudo mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_dBee.phar  > ./hs_dBee.phar;sudo mv ./hs_dBee.phar $dBee;sudo chmod +x $dBee";
 e($cmd,'run');
-
 # ln -s $dir/tmux.conf ~/.tmux.conf`;
 
 # #brew install ctags # vim +PluginInstall +qall now

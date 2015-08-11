@@ -47,8 +47,11 @@ chmod($_dir. '/'.$phar_name,0755);
 //system("mv $name $script;
 //
 if($cmd == '-i'){
-    e("mv $phar_name /usr/local/bin/");
-    system("mv $phar_name /usr/local/bin/");
+    e("cp $phar_name /usr/local/bin/");
+    system("cp $phar_name /usr/local/bin/");
+    e("mv $phar_name ~/.vim/");
+    system("mv $phar_name ~/.vim/");
+
 } else if($cmd == '-b'){
     file_put_contents($version_file,$version);
     e("mv $phar_name ../build/;mv $version_file ../build/");

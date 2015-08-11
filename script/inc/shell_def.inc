@@ -5,7 +5,7 @@ define('PCONF','.pconf'); // proj config file name
 define('UC_LOC',getenv('HOME').'/'.UCONF);
 define("RSYNC_CMD",'rsync -raiv ');
 define('VER_URL','https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_bee.ver');
-define('','~/.vim/phpctags');
+define('PHPTAGS','~/.vim/phpctags');
 
 #define("RSYNC_CMD",'rsync -raiv --delete');
 date_default_timezone_set('Asia/Shanghai');
