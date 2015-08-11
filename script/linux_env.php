@@ -33,6 +33,7 @@ ln -s $dir/vimrc  ~/.vimrc
 ln -s $dir/tmux.conf  ~/.tmux.conf
 ln -s $dir/tmux-user.conf  ~/.tmux-user.conf
 chmod +x $dir/phpctags
+chmod +x $dir/hs_path.phar
 EOF;
 
 }

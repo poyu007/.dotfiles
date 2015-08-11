@@ -426,20 +426,11 @@ endfunction
 function! g:Write()
 
     let s:from = expand('%:p:h')
-     silent w
-"         let s:cmd = 'hs_dBee.phar -tag '. s:from
-    let s:cmd = '~/.vim/hs_path.phar '. s:from
-    let s:out = system(s:cmd)
-
-    let g:ctrlp_cmd = ':CtrlP '.s:out
-
-    echo g:ctrlp_cmd
-
+    silent w
+"   let s:cmd = 'hs_dBee.phar -tag '. s:from
     "execute g:ctrlp_cmd
 
-    execute "PT ".s:cmd
     execute ':StripWhitespace'
-    "execute ""
 
 endfunction
 
@@ -463,7 +454,11 @@ command! -nargs=+ PT call s:PraeceptumTacet(<q-args>)
 function! CtrlPro()
 
     let s:from = expand('%:p:h')
-    let s:cmd = '~/.vim/hs_path.phar '. s:from
+    if !empty(glob("/usr/local/vim/hs_path.phar"))
+        let s:cmd = '/usr/local/vim/hs_path.phar '. s:from
+    elseif !empty(glob("~/.vim/hs_path.phar"))
+        let s:cmd = '~/.vim/hs_path.phar '. s:from
+    endif
     let s:out = system(s:cmd)
     let g:ctrlp_cmd = ':CtrlP '.s:out
     execute g:ctrlp_cmd
