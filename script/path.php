@@ -27,7 +27,7 @@ if($_cf == false || !isset($argv[1])){
     $raw = explode("/", $left_dir);
 
     if (strpos($now_dir,$git_dir) === false or count($raw) < 1 or $raw[0] == '') {
-        echo $git_dir;
+        echo $git_dir;"
     }else{
         echo $git_dir.'/'.$raw[0];
     }

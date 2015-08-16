@@ -134,7 +134,6 @@ Bundle 'Lokaltog/vim-powerline'
 " Bundle 'EasyMotion'
 
 
-"Bundle 'vim-scripts/taglist.vim'
 "http://qiita.com/wakuworks/items/5d05f178239a127af33d
 " jsctag  https://github.com/mozilla/doctorjs
 Bundle 'mihaifm/vimpanel'
@@ -147,7 +146,7 @@ Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'FencView.vim'
 
 Bundle 'The-NERD-Commenter'
-Bundle 'TaskList.vim'
+"Bundle 'TaskList.vim'
 " Solve tab  problem  http://www.haodaima.net/art/2464523
 Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'tpope/vim-fugitive'
@@ -155,12 +154,13 @@ Bundle 'tpope/vim-fugitive'
 " Bundle 'SirVer/ultisnips'
 "Bundle 'Shougo/neocomplete'
 Bundle 'Shougo/neocomplcache'
+Bundle 'jiangmiao/auto-pairs'
 " snippt package
 Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/neosnippet-snippets'
 " html css snippt
 Bundle 'mattn/emmet-vim'
-Bundle 'tpope/vim-surround'
+"Bundle 'tpope/vim-surround'
 "Bundle 'godlygeek/tabular'
 "Bundle 'AutoClose'
 "Bundle 'ervandew/supertab'
