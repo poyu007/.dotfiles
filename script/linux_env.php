@@ -1,8 +1,6 @@
 <?php
 include 'inc/basic.inc';
-ob_start();
 define('INST_SHELL',get_inst_shell());
-ob_end_clean();
 e('Install Shell : '.INST_SHELL);
 
 
