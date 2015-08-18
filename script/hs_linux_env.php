@@ -122,7 +122,7 @@ if($yorn == 'y'){
 
 e("Install heisoo tools!");
 $incFile= HS_LIB.'/usr/local/heisoo/Qe.phar';
-$cmd= "sudo mkdir -p ".HS_LIB.";sudo mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/Qe.phar  > ./Qe.phar;sudo mv ./Qe.phar $incDir;sudo chmod +x $incFile; ln -s ".HS_LIB."/Qe.phar /usr/local/bin/$incFile;";
+$cmd= "sudo mkdir -p ".HS_LIB.";sudo mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/Qe.phar  > ./Qe.phar;sudo mv ./Qe.phar $incFile;sudo chmod +x $incFile; ln -s ".HS_LIB."/Qe.phar /usr/local/bin/$incFile;";
 e($cmd,'run');
 # ln -s $dir/tmux.conf ~/.tmux.conf`;
 # #brew install ctags # vim +PluginInstall +qall now
