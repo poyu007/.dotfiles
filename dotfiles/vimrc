@@ -402,12 +402,12 @@ function! g:Sync(arg)
     let s:from = expand('%:p')
 
     if a:arg == 'file'
-        let s:cmd = 'Qe -file '. s:from
+        let s:cmd = 'hs_sync -file '. s:from
         echo s:cmd
     endif
 
     if a:arg == 'all'
-        let s:cmd = 'Qe -all '. s:from
+        let s:cmd = 'hs_sync -all '. s:from
         echo s:cmd
     endif
     "execute ":ConqueTermTab ". s:cmd
