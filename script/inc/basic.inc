@@ -1,5 +1,6 @@
 <?php
 define('_WHICH','not |no ');
+define('HS_LIB','/usr/local/heisoo');
 
 function e($p,$code ='green'){
 

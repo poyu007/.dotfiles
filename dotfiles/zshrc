@@ -129,6 +129,7 @@ alias R='source ~/.zshrc'
 alias viz='vim  ~/.zshrc'
 alias l='ls -la'
 alias ll='ls -AF'
+
 #alias tmux = 'tmux -2'
 #
 fancy-ctrl-z () {

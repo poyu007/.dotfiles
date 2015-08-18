@@ -1,6 +1,7 @@
 <?php
 include 'inc/basic.inc';
 define('INST_SHELL',get_inst_shell());
+
 e('Install Shell : '.INST_SHELL);
 
 
@@ -120,9 +121,8 @@ if($yorn == 'y'){
 }
 
 e("Install heisoo tools!");
-$dBee= '/usr/local/bin/hs_dBee.phar';
-$cmd= "sudo mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_dBee.phar  > ./hs_dBee.phar;sudo mv ./hs_dBee.phar $dBee;sudo chmod +x $dBee";
+$incFile= '/usr/local/heisoo/Qe.phar';
+$cmd= "sudo mkdir -p /usr/local/heisoo/;sudo mkdir -p /usr/local/bin/;curl -L# https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/Qe.phar  > ./Qe.phar;sudo mv ./Qe.phar $incDir;sudo chmod +x $incFile; ln -s /usr/local/heisoo/Qe.phar /usr/local/bin/$incFile;";
 e($cmd,'run');
 # ln -s $dir/tmux.conf ~/.tmux.conf`;
-
 # #brew install ctags # vim +PluginInstall +qall now
