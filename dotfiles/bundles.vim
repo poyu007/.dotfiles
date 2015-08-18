@@ -152,8 +152,7 @@ Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'tpope/vim-fugitive'
 
 " Bundle 'SirVer/ultisnips'
-"Bundle 'Shougo/neocomplete'
-Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neocomplete'
 Bundle 'jiangmiao/auto-pairs'
 " snippt package
 Bundle 'Shougo/neosnippet'
