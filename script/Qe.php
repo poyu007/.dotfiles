@@ -5,23 +5,12 @@ $conf = is_file(__DIR__.'/inc/hs_conf.inc') ? __DIR__.'/inc/hs_conf.inc' : __DIR
 include($conf);
 
 // check user config  exist
-if(!isset($argv[1])){
-    e('miss parameter type -set , -all , -file, -run , -do , -add, -bind','red');
-}else if(file_exists(UC_LOC) == false or $argv[1] == '-set') {
-    init();
-    exit;
-}else if(!isset($argv[2])){
-    e('miss 2 parameter ','red');
-}
-$source = realpath($argv[2]);
 
 $_cf = loadConf(UC_LOC);
-$now_dir= (isset($argv[2])) ? $source : getenv('PWD');
+$now_dir = getenv('PWD');
 
 define_proj_dir($_cf['git_dir'],$_cf['user'],$now_dir);
 
-
-//loading config
 conf_to_def($_cf);
 if(is_file(PCONF_LOC)){
     $_pcf=loadConf(PCONF_LOC);
@@ -32,37 +21,8 @@ if(is_file(PCONF_LOC)){
 check_version();
 
 $arg = '';
-$num = count($argv);
-for($i=3; $i< $num ; $i++){
-    $arg .= $argv[$i].' ';
-}
 
-if($argv[1] == '-all'){
-    proj_all();
-}else if($argv[1] == '-tag'){
-
-    $cmd ='cd '.PCONF_PATH.';'.PHPTAGS.' -R */*/*;mv tags ~/.vim/tags;';
-    ($cmd);
-
-}else if($argv[1] == '-run'){
-
-    if(!isset($argv[2])){
-        e('Warning : need push file','red');
-    }
-
-    $file= $argv[2];
-
-    proj_file($file);
-    remote_exec($file,$arg);
-} else if($argv[1] == '-do'){
+if(!startswith($argv[1],'-')){
     remote_do($argv[1]);
-}else if($argv[1] == '-file'){
-
-    $file = is_file($argv[2]) ? $argv[2] : e('file not exist','red');
-    proj_file($file);
-
-
 }else if($argv[1] == '-add'){
-}else if($argv[1] == '-bind'){
 }
-

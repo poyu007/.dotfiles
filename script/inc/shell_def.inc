@@ -6,6 +6,7 @@ define('UC_LOC',getenv('HOME').'/'.UCONF);
 define("RSYNC_CMD",'rsync -raiv ');
 define('VER_URL','https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_bee.ver');
 define('PHPTAGS','~/.vim/phpctags');
+define('_IP','54.251.111.229');
 
 #define("RSYNC_CMD",'rsync -raiv --delete');
 date_default_timezone_set('Asia/Shanghai');
@@ -33,7 +34,7 @@ function check_version(){
 
 function upgrade(){
     $git_url ='https://raw.githubusercontent.com/poyu007/heisoo_env/master';
-    $cmd= "mkdir -p /usr/local/bin/;curl -s $git_url/build/hs_dBee.phar  > /usr/local/bin/hs_dBee.phar";
+    $cmd= "mkdir -p /usr/local/bin/;curl -s $git_url/build/hs_sync.phar  > ".HS_LIB."/hs_sync.phar";
     system($cmd);
     $cmd ="curl -s $git_url/dotfiles/vimrc > ~/.vim/vimrc";
     system($cmd);
@@ -60,7 +61,6 @@ function conf_to_def($conf){
     foreach($conf as $k => $v){
         define('_'.strtoupper($k),$v);
     }
-    define('_DEV', _USER.'@'._DEV_SERVER);
 
 }
 
@@ -69,13 +69,20 @@ function saveConf($conf,$json){
         file_put_contents($conf,json_encode($json,JSON_PRETTY_PRINT));
     }
 }
+function save_uniq_line($file,$line){
+    $content = file_get_contents($file);
+    $content.= $line."\n";
+    $raw = explode("\n", $content);
+    $lines = array_unique($raw);
+    $content = implode("\n",$lines);
+    file_put_contents($file,$content, LOCK_EX);
+}
 
 
 function nerdtreeBookMark($proj,$path){
     $NERDtreeConf = getenv('HOME'). '/.NERDTreeBookmarks';
-    $content = $proj.' '.$path."\n";
-    e($content);
-    file_put_contents($NERDtreeConf,$content,FILE_APPEND | LOCK_EX);
+    $line= $proj.' '.$path;
+    save_uniq_line($NERDtreeConf,$line);
 
 }
 
@@ -105,6 +112,7 @@ function define_proj_dir($git_dir,$user,$now_dir){
         define('PCONF_LOC',$pconf_loc);
         define('PCONF_PATH',$git_dir.'/'.$proj.'/');
         define('_TARGET',$pcf['target']);
+        define('_WORK_SERVER',$pcf['work_server']);
     }
 
 }
@@ -195,32 +203,23 @@ function keygen($user){
         //system($cmd, $out);
     }
 }
-function remote_exec($file,$arg = _PARA){
-    $file = realpath($file);
-    if(!is_executable($file)){
-        e("flle can't execution",'red');
-    }
-    $rela_file = get_newpos($file);
 
-    $cmd = "ssh -t "._DEV.'  "'.$rela_file.' '.$arg.'"';
-    e($cmd);
-    system($cmd,$res);
-    e($res);
-}
 
 function remote_do($do){
 
-    $cmd = "ssh -t "._DEV.'  "cd ~/;'.$do.'"';
+    $path = get_newpos(getenv('PWD'));
+
+    $cmd = 'ssh -t '._USER.'@'._WORK_SERVER.' "cd '.$path.";$do\"";
     e($cmd);
     system($cmd,$res);
     e($res);
 }
 
 function proj_all(){
-    $exclude="--exclude '.git' ";
+    $exclude="--exclude '.pconf' ";
     $exclude.="--exclude 'tags' ";
     $exclude.="--exclude '.DS_Store' ";
-    $sync_cmd= RSYNC_CMD.' '.PCONF_PATH.' '._DEV.':'._TARGET.'/ '.$exclude;
+    $sync_cmd= RSYNC_CMD.' '.PCONF_PATH.' '._USER.'@'._WORK_SERVER.':'._TARGET.'/ '.$exclude;
     e($sync_cmd,'run');
 }
 function proj_file($file){
@@ -229,7 +228,7 @@ function proj_file($file){
     if(!is_file($file)) e('Not a file ','red');
 
     $rela_file = get_newpos($file);
-    $sync_cmd= 'rsync  -raiv  '.$file.' '._DEV.':'.$rela_file;
+    $sync_cmd= 'rsync  -raiv  '.$file.' '._USER.'@'._WORK_SERVER.':'.$rela_file;
     e($sync_cmd);
     system($sync_cmd,$res);
     e($res);
@@ -241,7 +240,6 @@ function get_newpos($file){
     $rela_path = implode('/',$raw);
     return _TARGET.'/'.$rela_path;
 }
-
 
 
 
