@@ -35,39 +35,8 @@ set noswapfile
 
 "}}} backup undo swap setting
 
-set t_Co=256                                                      " Explicitly tell vim that the terminal has 256 colors "
-set laststatus=2   " Always show the statusline
-set ambiwidth=single
-set clipboard=unnamed
-set expandtab
-" 行间距
-set linespace=4
-" 显示行号
-set number
-" 用 <> 调整缩进的长度
-set shiftwidth=4
-" tab 符的长度
-set tabstop=4
-set softtabstop=4
 
-" 行号栏的宽度 "
-set numberwidth=4
-" 禁止自动换行
-set nowrap
-set wildmenu
-set wildmode=longest:full,full
-" set wildignore+=*.orig,*.pyc
-" 分割窗口时 保持相等的宽/高
-set equalalways
-" 匹配括号的规则，增加了针对HTML的<>
-set matchpairs=(:),{:},[:],<:>
-" 退格、空格、上下箭头 遇到 行首 行尾 时 自动移动下一行(包括insert模式)
-set whichwrap=b,s,<,>,[,]
-set foldmethod=marker
-set diffopt+=iwhite,vertical " 忽略缩进的差异
 set tags=~/.vim/tags
-:set shortmess=a
-
 """"""""""""""""""""""""""""""""""""""""
 " vim  UI
 """"""""""""""""""""""""""""""""""""""""
