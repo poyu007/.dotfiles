@@ -35,6 +35,10 @@ set noswapfile
 
 "}}} backup undo swap setting
 
+" 用 <> 调整缩进的长度
+" 匹配括号的规则，增加了针对HTML的<>
+" 退格、空格、上下箭头 遇到 行首 行尾 时 自动移动下一行(包括insert模式)
+
 
 set tags=~/.vim/tags
 """"""""""""""""""""""""""""""""""""""""
@@ -138,7 +142,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe" Windows
 let g:ctrlp_user_command = 'find %s -type f'
 let g:ctrlp_custom_ignore = '\v[\/]\.(DS_Storegit|hg|svn|optimized|compiled|node_modules|cache|autojump)$'
-let g:Powerline_symbols = 'compatible'
 let g:ctrlp_user_command = 'find %s -type f'
 let g:ctrlp_dont_split = 'NERD_tree_2'
 let g:NERDTreeWinPos = "right"
@@ -183,11 +186,6 @@ let g:html5_microdata_attributes_complete = 0
 let g:html5_aria_attributes_complete = 0
 let g:aria_attributes_complete = 0
 
-
-
-
-
-
 "xnoremap p pgvy
 
 " {{{ phpctags -------- !!!
@@ -215,11 +213,6 @@ endif
 
 " -----------------  Ag search ----
 let g:ackprg = 'ag --nogroup --nocolor --column --ignore-dir="*tag"'
-
-
-
-
-
 
 
 
@@ -433,7 +426,7 @@ if filereadable(glob("~/.vimrc.local"))
 endif
 
 
-"/*{{{* 代码折叠/
+"/**{{{ 代码折叠/
 "
 set foldenable
 " 折叠方法
@@ -443,15 +436,15 @@ set foldenable
 " syntax    使用语法定义折叠
 " diff      对没有更改的文本进行折叠
 " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
-set foldmethod=marker
+set foldmethod=diff
 set foldcolumn=0            " 设置折叠区域的宽度"
+set foldlevelstart=99
 au BufWinEnter * silent! loadview
 au BufWinLeave * silent! mkview
 
-"set foldlevel=1
+set foldlevel=1
 " 代码折叠自定义快捷键
 let g:FoldMethod = 0
-map <leader>z :call ToggleFold()<cr>
 fun! ToggleFold()
     if g:FoldMethod == 0
         exe "normal! zM"
@@ -461,7 +454,7 @@ fun! ToggleFold()
         let g:FoldMethod = 0
     endif
 endfun
-"/*}}}*/
+"/*}}}*/"{{{
 " {{{  ----------    command  remap ---------------------
 
 
@@ -492,17 +485,18 @@ if(expand('%:p') == $HOME.'/.vim/bundles.vim')
     autocmd! bufwritepost ~/.vim/bundles.vim source ~/.vimrc " vimrc文件修改之后自动加载。 linux。"
 endif
 
-" }}}  ----------    command  remap ---------------------
+" }}}  ----------    command  remap ---------------------"}}}
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
+" Readline bindings for command mode
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
-cnoremap <C-f> <right>
-cnoremap <C-b> <left>
+cmap <C-d> <Del>
+cnoremap <C-h> <BS>
+cnoremap <C-x><C-e> <C-f>
+" The bindings below ought to be <M-...>, this is specific to 0SX
 noremap <silent><leader>/ :nohls<CR>
 nnoremap U <C-r>
 
@@ -518,8 +512,8 @@ map <silent> <leader>evi :e ~/.vimrc<cr>
 map <leader>q :wq<cr>
 nnoremap <leader>w :w<CR>
 "nmap <silent><leader>r :!pbpaste <cr>
-nmap <silent><leader>f :call g:Sync('file')<cr>
-nmap <silent><leader>a :call g:Sync('all') <cr>
+nmap <silent><leader>fi :call g:Sync('file')<cr>
+nmap <silent><leader>di :call g:Sync('all') <cr>
 nmap <silent><leader>x :VimuxCloseRunner <cr>
 nnoremap <Leader>p :CtrlPMRU<CR>
 nnoremap <leader>dump :TagbarToggle<CR>
@@ -530,7 +524,12 @@ nnoremap <silent><Leader>nu :call NumberToggle()<cr>
 nnoremap <leader>v V`}
 nmap <silent><leader>gs :call Gs()<cr>
 noremap <leader>h :GundoToggle<CR>
+nmap <silent><leader>fo :call ToggleFold()<cr>
 
-
+" mini buffer exploer
+nnoremap <TAB> :MBEbn<CR>
+noremap <leader>bn :MBEbn<CR>
+noremap <leader>bp :MBEbp<CR>
+noremap <leader>bd :MBEbd<CR>
 " autocmd! VimEnter *  :silent !~/.vim/phpctags -R *
 
