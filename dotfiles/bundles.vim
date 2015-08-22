@@ -1,4 +1,3 @@
-
 """""""""""""""""""""""""""""""""""""""""""""""""
 " default
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -7,27 +6,14 @@ set nocompatible
 " Basic infomation Settings 文件编码,格式
 "==========================================
 " 设置新文件的编码为 UTF-8
-set encoding=utf-8
-" 自动判断编码时，依次尝试以下编码：
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-set helplang=cn
-set hidden
-set termencoding=utf-8
-
-set scrolloff=5  " 往下移动会留  5  格
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
 
 "set wildmenu
 "set wildmode=list:longest
 "set wildmode=longest:full,full
 set ttyfast       " Vim Scrolling Slowly
 set autoindent    " 打开自动缩进
-" 如遇Unicode值大于255的文本，不必等到空格再折行。
-set formatoptions+=m
 " 合并两行中文时，不在中间加空格：
 set formatoptions+=B
-set mouse=a
 set ambiwidth=single
 set wrap
 set whichwrap=b,s,<,>,[,]
@@ -37,9 +23,8 @@ set viminfo^=%
 set magic "正则:  除了 $ . * ^ 之外其他元字符都要加反斜杠。http://blog.charlee.li/vim-regexp/  "
 set ruler       " show the cursor position all the time
 set showcmd     " display incomplete commands
-set backspace=indent,eol,start    " allow backspacing over everything in insert 
+set backspace=indent,eol,start    " allow backspacing over everything in insert
 set laststatus=2   " Always show the statusline
-set t_Co=256                                                  " Explicitly tell vim that the terminal has 256 colors "
 set smartindent   " Smart indent
 " never add copyindent, case error   " copy the previous indentation on autoindenting
 set clipboard=unnamed
@@ -60,19 +45,12 @@ set smartcase
 set showmatch
 set hlsearch  " 打开增量搜索模式,随着键入即时搜索
 
-" 括号配对情况,跳转并高亮一下匹配的括号
+
 " How many tenths of a second to blink when matching brackets
-set matchtime=2
+set matchtime=2 " 括号配对情况,跳转并高亮一下匹配的括号
 
-    
 
-" 自动补全配置
-"让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-set completeopt=longest,menu
-" 增强模式中的命令行自动完成操作
-set wildmenu
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc,*.class
+
 
 
 "离开插入模式后自动关闭预览窗口
@@ -90,14 +68,7 @@ set history=400   " keep 400 lines of command line history
 
 syntax enable
 " In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
 
-" 显示光标位置
-set grepprg=ack\ --nogroup\ --column\ $*
-set grepformat=%f:%l:%c:%m
-" Don't use Ex mode, use Q for formatting
 map Q gq
 
 
@@ -214,7 +185,6 @@ Bundle 'Lokaltog/vim-powerline'
 "http://qiita.com/wakuworks/items/5d05f178239a127af33d
 " jsctag  https://github.com/mozilla/doctorjs
 Bundle 'mihaifm/vimpanel'
-
 " new pane of things
 Bundle 'majutsushi/tagbar'
 Bundle 'vim-scripts/tagbar-phpctags'
@@ -255,6 +225,3 @@ Bundle 'benmills/vimux'
 "Bundle 'xolox/vim-easytags'
 
 filetype plugin indent on
-
-
-

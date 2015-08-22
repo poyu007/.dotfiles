@@ -7,20 +7,9 @@ endif
 
 " Platform
 
-"filetype plugin indent on
-" Platform
-"检测文件类型
-filetype on
-"针对不同的文件类型采用不同的缩进格式
-filetype indent on
-"允许插件
-filetype plugin on
-"启动自动补全
-filetype plugin indent on
+" ------------------------
 
-set autoread          " 文件修改之后自动载入。
-
-"{{{ /* backup undo swap setting */
+"{{{ backup undo swap settingn
 if !isdirectory($HOME."/.vim/backups")
     call mkdir($HOME."/.vim/backups", "p")
 endif
@@ -45,7 +34,6 @@ set noswapfile
 
 
 "}}} backup undo swap setting
-
 
 set t_Co=256                                                      " Explicitly tell vim that the terminal has 256 colors "
 set laststatus=2   " Always show the statusline
@@ -97,6 +85,7 @@ else
 
     let g:solarized_termcolors=256
     syntax enable
+
     set background=dark
     colorscheme solarized
 
@@ -124,6 +113,7 @@ endif
 " autocmd! bufwritepost .vimrc source ~/.vimrc
 " autocmd! VimEnter *  :silent !~/.vim/phpctags -R *
 
+" filetype
 
 
 
@@ -474,19 +464,44 @@ if filereadable(glob("~/.vimrc.local"))
 endif
 
 
+"/*{{{* 代码折叠/
+"
+set foldenable
+" 折叠方法
+" manual    手工折叠
+" indent    使用缩进表示折叠
+" expr      使用表达式定义折叠
+" syntax    使用语法定义折叠
+" diff      对没有更改的文本进行折叠
+" marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
+set foldmethod=marker
+set foldcolumn=0            " 设置折叠区域的宽度"
+au BufWinEnter * silent! loadview
+au BufWinLeave * silent! mkview
+
+"set foldlevel=1
+" 代码折叠自定义快捷键
+let g:FoldMethod = 0
+map <leader>z :call ToggleFold()<cr>
+fun! ToggleFold()
+    if g:FoldMethod == 0
+        exe "normal! zM"
+        let g:FoldMethod = 1
+    else
+        exe "normal! zR"
+        let g:FoldMethod = 0
+    endif
+endfun
+"/*}}}*/
 " {{{  ----------    command  remap ---------------------
 
 
 " Language support
 autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 textwidth=80
 autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-
-
-" filetype
 autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
 autocmd BufNewFile,BufRead *.md setlocal ft=markdown
 autocmd BufNewFile,BufRead *.scss set ft=scss
-
 
 function! Gs()
     execute ':Gwrite'
