@@ -127,6 +127,11 @@ Bundle 'altercation/vim-colors-solarized'
 "--------------
 Bundle 'L9'
 Bundle 'scrooloose/syntastic'
+let g:syntastic_error_symbol='!'
+let g:syntastic_warning_symbol='>'
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
+let g:syntastic_enable_highlighting=1
 "Bundle 'FuzzyFinder'
 
 
@@ -141,8 +146,6 @@ Bundle 'ctrlp.vim'
 
 
 Bundle 'junegunn/vim-easy-align'
-vmap <Leader>a <Plug>(EasyAlign)
-nmap <Leader>a <Plug>(EasyAlign)
 if !exists('g:easy_align_delimiters')
   let g:easy_align_delimiters = {}
 endif
@@ -213,5 +216,4 @@ Bundle 'benmills/vimux'
 "Bundle 'kshenoy/vim-signature'
 "Bundle 'vim-scripts/TagHighlight'
 
-filetype plugin indent on
 

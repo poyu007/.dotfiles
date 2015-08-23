@@ -1,0 +1,10 @@
+{
+    "path": [
+        {
+            "from": " ",
+            "to": ""
+        }
+    ],
+    "target": "\/home\/josh\/proj\/heisoo_env",
+    "work_server": "dev.heisoo.com"
+}
