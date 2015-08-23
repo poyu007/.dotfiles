@@ -125,7 +125,7 @@ Bundle 'altercation/vim-colors-solarized'
 "--------------
 Bundle 'L9'
 Bundle 'scrooloose/syntastic'
-Bundle 'FuzzyFinder'
+"Bundle 'FuzzyFinder'
 
 
 
@@ -136,30 +136,32 @@ Bundle 'mru.vim'
 Bundle 'ctrlp.vim'
 "Bundle 'tacahiroy/ctrlp-funky'
 "Bundle 'voronkovich/ctrlp-nerdtree.vim'
-
+Bundle 'tmhedberg/SimpylFold'
 Bundle 'Lokaltog/vim-powerline'
 let g:Powerline_symbols = 'unicode'
 " Bundle 'xolox/vim-misc'
 " Bundle 'xolox/vim-session'
 " Bundle 'EasyMotion'
 
-
 "http://qiita.com/wakuworks/items/5d05f178239a127af33d
 " jsctag  https://github.com/mozilla/doctorjs
-Bundle 'mihaifm/vimpanel'
+"Bundle 'mihaifm/vimpanel'
 
 " new pane of things
+Bundle 'tmhedberg/SimpylFold'
 Bundle 'majutsushi/tagbar'
 Bundle 'vim-scripts/tagbar-phpctags'
 Bundle 'scrooloose/nerdtree'
+" {{{
 let NERDTreeShowBookmarks=1
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
 "close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
-
+" }}}
 "for minibufferexpl
 Bundle 'fholgado/minibufexpl.vim'
+" {{{
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
@@ -168,11 +170,11 @@ let g:miniBufExplModSelTarget = 1
 let g:miniBufExplForceSyntaxEnable = 1
 let g:miniBufExplorerMoreThanOne=2
 let g:miniBufExplCycleArround=1
-
+" }}}
 "Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'FencView.vim'
 
-Bundle 'The-NERD-Commenter'
+"Bundle 'The-NERD-Commenter'
 "Bundle 'TaskList.vim'
 " Solve tab  problem  http://www.haodaima.net/art/2464523
 Bundle 'ntpeters/vim-better-whitespace'

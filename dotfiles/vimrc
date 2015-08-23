@@ -485,7 +485,7 @@ if(expand('%:p') == $HOME.'/.vim/bundles.vim')
     autocmd! bufwritepost ~/.vim/bundles.vim source ~/.vimrc " vimrc文件修改之后自动加载。 linux。"
 endif
 
-" }}}  ----------    command  remap ---------------------"}}}
+" }}}  ----------    command  remap ---------------------"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map
@@ -532,4 +532,3 @@ noremap <leader>bn :MBEbn<CR>
 noremap <leader>bp :MBEbp<CR>
 noremap <leader>bd :MBEbd<CR>
 " autocmd! VimEnter *  :silent !~/.vim/phpctags -R *
-
