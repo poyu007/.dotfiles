@@ -2,6 +2,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""
 " default
 """""""""""""""""""""""""""""""""""""""""""""""""
+"{{{  ---- default setting
 set nocompatible
 "==========================================
 " Basic infomation Settings 文件编码,格式
@@ -84,6 +85,7 @@ if !exists(":DiffOrig")
           \ | wincmd p | diffthis
 endif
 
+" }}}  ---- default setting
 """"""""""""""""""""""""""""
 " Vundle
 """"""""""""""""""""""""""""
@@ -136,7 +138,15 @@ Bundle 'mru.vim'
 Bundle 'ctrlp.vim'
 "Bundle 'tacahiroy/ctrlp-funky'
 "Bundle 'voronkovich/ctrlp-nerdtree.vim'
-"Bundle 'tmhedberg/SimpylFold'
+
+
+Bundle 'junegunn/vim-easy-align'
+vmap <Leader>a <Plug>(EasyAlign)
+nmap <Leader>a <Plug>(EasyAlign)
+if !exists('g:easy_align_delimiters')
+  let g:easy_align_delimiters = {}
+endif
+let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
 Bundle 'Lokaltog/vim-powerline'
 let g:Powerline_symbols = 'unicode'
 " Bundle 'xolox/vim-misc'
@@ -145,17 +155,17 @@ let g:Powerline_symbols = 'unicode'
 
 "http://qiita.com/wakuworks/items/5d05f178239a127af33d
 " jsctag  https://github.com/mozilla/doctorjs
+
 "Bundle 'mihaifm/vimpanel'
 
 " new pane of things
-Bundle 'tmhedberg/SimpylFold'
 Bundle 'majutsushi/tagbar'
 Bundle 'vim-scripts/tagbar-phpctags'
 Bundle 'scrooloose/nerdtree'
 " {{{
-let NERDTreeShowBookmarks=1
-let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+let NERDTreeShowBookmarks       = 1
+let NERDTreeHighlightCursorline = 1
+let NERDTreeIgnore              = [ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
 "close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
 " }}}
@@ -202,7 +212,6 @@ Bundle 'benmills/vimux'
 "Bundle 'MattesGroeger/vim-bookmarks'
 "Bundle 'kshenoy/vim-signature'
 "Bundle 'vim-scripts/TagHighlight'
-"Bundle 'xolox/vim-easytags'
 
 filetype plugin indent on
 
