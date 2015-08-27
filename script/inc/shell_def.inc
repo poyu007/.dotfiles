@@ -7,6 +7,7 @@ define("RSYNC_CMD",'rsync -raiv ');
 define('VER_URL','https://raw.githubusercontent.com/poyu007/heisoo_env/master/build/hs_bee.ver');
 define('PHPTAGS','~/.vim/phpctags');
 define('_IP','54.251.111.229');
+define("_PRETTY",128);
 
 #define("RSYNC_CMD",'rsync -raiv --delete');
 date_default_timezone_set('Asia/Shanghai');
@@ -65,10 +66,8 @@ function conf_to_def($conf){
 }
 
 function saveConf($conf,$json){
-    echo $conf."\n";
-    print_r($json);
     if(!empty($json)){
-        file_put_contents($conf,json_encode($json,JSON_PRETTY_PRINT));
+        file_put_contents($conf,json_encode($json,_PETTY));
     }
 }
 function save_uniq_line($file,$line){
