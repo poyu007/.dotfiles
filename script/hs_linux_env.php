@@ -66,13 +66,19 @@ function run_cmds($cmds){
 }
 
 
-if(getenv('PWD') == '/usr/local/vim'){
+e("1. server setup 2. peronal desk setup   ! [1/2] !");
+$yorn = read_stdin();
+if($yorn == '1'){
 
     define('_HOME','/usr/local/vim');
     define('_SHARE',true);
-}else{
+}elseif($yorn == '2'){
     define('_HOME',getenv('HOME').'/.vim');
+}else{
+    e('please type 1 or 2 ','red');
 }
+
+
 e("Process vim setup  ! [y/n] !");
 $yorn = read_stdin();
 if($yorn == 'y'){

@@ -135,9 +135,6 @@ let g:syntastic_enable_highlighting=1
 "Bundle 'FuzzyFinder'
 
 
-
-"Bundle 'benmills/vimux'
-
 " CTRL+P
 Bundle 'mru.vim'
 Bundle 'ctrlp.vim'
@@ -187,7 +184,6 @@ let g:miniBufExplCycleArround=1
 "Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'FencView.vim'
 
-"Bundle 'The-NERD-Commenter'
 "Bundle 'TaskList.vim'
 " Solve tab  problem  http://www.haodaima.net/art/2464523
 Bundle 'ntpeters/vim-better-whitespace'
@@ -195,6 +191,8 @@ Bundle 'tpope/vim-fugitive'
 
 " Bundle 'SirVer/ultisnips'
 Bundle 'Shougo/neocomplete'
+Bundle 'jiangmiao/auto-pairs'
+let g:AutoClosePairs = {'(': ')',  '[': ']', '"': '"', "'": "'"}
 " snippt package
 Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/neosnippet-snippets'
@@ -202,7 +200,6 @@ Bundle 'Shougo/neosnippet-snippets'
 Bundle 'mattn/emmet-vim'
 "Bundle 'tpope/vim-surround'
 "Bundle 'godlygeek/tabular'
-"Bundle 'AutoClose'
 "Bundle 'ervandew/supertab'
 " super fast motion move
 Bundle 'rking/ag.vim'
@@ -215,5 +212,4 @@ Bundle 'benmills/vimux'
 "Bundle 'MattesGroeger/vim-bookmarks'
 "Bundle 'kshenoy/vim-signature'
 "Bundle 'vim-scripts/TagHighlight'
-
-
+"Bundle 'The-NERD-Commenter'
