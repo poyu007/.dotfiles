@@ -65,6 +65,8 @@ function conf_to_def($conf){
 }
 
 function saveConf($conf,$json){
+    echo $conf."\n";
+    print_r($json);
     if(!empty($json)){
         file_put_contents($conf,json_encode($json,JSON_PRETTY_PRINT));
     }
@@ -189,7 +191,7 @@ function keygen($user){
     e("Setup ssh keygen [y/n] ? ");
     $yorn = read_stdin();
     if($yorn == 'y'){
-        passthru('ssh-keygen -t rsa');
+        system('ssh-keygen -t rsa');
         //$pw = read_stdin();
         $path=getenv('HOME');
         $cmd = 'ssh -t '.$user.'@dev.heisoo.com  "mkdir -p ~/.ssh/"';

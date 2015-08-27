@@ -69,7 +69,6 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype and syntax
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:javascript_enable_domhtmlcss=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -334,7 +333,6 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 "}}}  vim paste problem
 
 
-
 "{{{ 相对行号      行号变成相对，可以用 nj  nk   进行跳转 5j   5k 上下跳5行
 set relativenumber number
 au FocusLost * :set norelativenumber number
@@ -493,7 +491,7 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-f> <right>
 cnoremap <C-b> <left>
-noremap <silent><leader>/ :nohls<CR>
+noremap <silent><leader>/ :nohls<CR>  "  <<<------"
 nnoremap U <C-r>
 
 " Yank text to the OS X clipboard" 将文本复制到OS X剪贴板中
