@@ -67,7 +67,7 @@ function conf_to_def($conf){
 
 function saveConf($conf,$json){
     if(!empty($json)){
-        file_put_contents($conf,json_encode($json,_PETTY));
+        file_put_contents($conf,json_encode($json,_PRETTY));
     }
 }
 function save_uniq_line($file,$line){
