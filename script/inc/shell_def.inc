@@ -212,7 +212,7 @@ function remote_do($do){
 
     $cmd = 'ssh -t '._USER.'@'._WORK_SERVER.' "cd '.$path.";$do\"";
     e($cmd);
-    system($cmd,$res);
+    passthru($cmd,$res);
     e($res);
 }
 

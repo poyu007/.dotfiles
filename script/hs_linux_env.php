@@ -107,7 +107,8 @@ if($yorn == 'y'){
         $cmd ="sudo apt-get install zsh git-core";
         e($cmd,'run');
     }elseif(INST_SHELL == 'yum' ){
-        $cmd=('yum install ncurses-devel;sudo yum install autojump;yum install the_silver_searcher');
+        $cmd=('yum install ncurses-devel;sudo yum install autojump');
+        e("yum install ag -> http://www.9enjoy.com/ag-the_silver_searcher/",'yellow');
         inst_zsh();
         e($cmd,'run');
     }

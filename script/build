@@ -1,8 +1,8 @@
-php php2cli.php -i hs_linux_env.php
-php php2cli.php -b hs_linux_env.php
-php php2cli.php -i Qe.php
-php php2cli.php -b Qe.php
-php php2cli.php -b hs_path.php
-php php2cli.php -i hs_path.php
-php php2cli.php -b hs_sync.php
-php php2cli.php -i hs_sync.php
+php2cli -i hs_linux_env.php
+php2cli -b hs_linux_env.php
+php2cli -i Qe.php
+php2cli -b Qe.php
+php2cli -b hs_path.php
+php2cli -i hs_path.php
+php2cli -b hs_sync.php
+php2cli -i hs_sync.php
