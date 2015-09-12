@@ -1,0 +1,11 @@
+brew install protobuf
+brew install boost
+brew install pkg-config
+brew install automake
+
+git clone https://github.com/keithw/mosh.git
+cd mosh
+./autogen.sh
+./configure
+make
+make install

@@ -1,3 +1,5 @@
+php2cli -i php2cli.php
+php2cli -b php2cli.php
 php2cli -i hs_linux_env.php
 php2cli -b hs_linux_env.php
 php2cli -i Qe.php

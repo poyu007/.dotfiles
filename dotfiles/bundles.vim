@@ -90,8 +90,6 @@ endif
 " Vundle
 """"""""""""""""""""""""""""
 filetype off
-
-
 if isdirectory("/usr/local/vim/bundle")
     set rtp+=/usr/local/vim/bundle/vundle/
     call vundle#rc('/usr/local/vim/bundle')
@@ -169,7 +167,7 @@ let NERDTreeIgnore              = [ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$
 "close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
 " }}}
-"for minibufferexpl
+"for minibufferexplj
 Bundle 'fholgado/minibufexpl.vim'
 " {{{
 let g:miniBufExplMapWindowNavVim = 1
@@ -180,6 +178,12 @@ let g:miniBufExplModSelTarget = 1
 let g:miniBufExplForceSyntaxEnable = 1
 let g:miniBufExplorerMoreThanOne=2
 let g:miniBufExplCycleArround=1
+hi MBENormal               guifg=#808080 guibg=fg
+hi MBEChanged              guifg=#CD5907 guibg=fg
+hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
+hi MBEVisibleChanged       guifg=#F1266F guibg=fg
+hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
+hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg
 " }}}
 "Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'FencView.vim'
@@ -188,11 +192,14 @@ Bundle 'FencView.vim'
 " Solve tab  problem  http://www.haodaima.net/art/2464523
 Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'tpope/vim-fugitive'
-
 " Bundle 'SirVer/ultisnips'
 Bundle 'Shougo/neocomplete'
-Bundle 'jiangmiao/auto-pairs'
-let g:AutoClosePairs = {'(': ')',  '[': ']', '"': '"', "'": "'"}
+"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Shougo/vimproc'
+Bundle 'Shougo/unite.vim'
+Bundle 'm2mdas/phpcomplete-extended'
+
+
 " snippt package
 Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/neosnippet-snippets'

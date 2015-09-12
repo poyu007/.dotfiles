@@ -5,7 +5,6 @@ elseif !empty(glob("/usr/local/vim/bundles.vim"))
 endif
 " history存储容量
 set history=2000
-
 "检测文件类型
 filetype on
 "针对不同的文件类型采用不同的缩进格式
@@ -69,6 +68,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " filetype and syntax
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:javascript_enable_domhtmlcss=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -231,7 +231,6 @@ let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
         \ }
-
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
@@ -285,6 +284,7 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -297,7 +297,8 @@ endif
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-"}}} ----------------- neocomplete end  ----
+"   "}}} ----------------- neocomplete end  ----
+
 
 "{{{  vim paste problem
 " https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
@@ -333,6 +334,7 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 "}}}  vim paste problem
 
 
+
 "{{{ 相对行号      行号变成相对，可以用 nj  nk   进行跳转 5j   5k 上下跳5行
 set relativenumber number
 au FocusLost * :set norelativenumber number
@@ -349,6 +351,90 @@ function! NumberToggle()
 endfunc
 "}}}
 
+
+
+
+" ========= Commands ========
+
+let g:netrw_liststyle=3 " Show nested tree mode when viewing directories
+
+if filereadable(glob("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
+
+
+"/*{{{* 代码折叠/
+"
+set foldenable
+" 折叠方法
+" manual    手工折叠
+" indent    使用缩进表示折叠
+" expr      使用表达式定义折叠
+" syntax    使用语法定义折叠
+" diff      对没有更改的文本进行折叠
+" marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
+set foldmethod=marker
+set foldcolumn=0            " 设置折叠区域的宽度"
+au BufWinEnter * silent! loadview
+au BufWinLeave * silent! mkview
+
+"set foldlevel=1
+" 代码折叠自定义快捷键
+let g:FoldMethod = 0
+nmap <leader>{ :call ToggleFold()<cr>
+fun! ToggleFold()
+    if g:FoldMethod == 0
+        exe "normal! zM"
+        let g:FoldMethod = 1
+    else
+        exe "normal! zR"
+        let g:FoldMethod = 0
+    endif
+endfun
+"/*}}}*/
+" {{{  ----------    command  remap ---------------------
+
+
+" Language support
+autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 textwidth=80
+autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
+autocmd BufNewFile,BufRead *.md setlocal ft=markdown
+autocmd BufNewFile,BufRead *.scss set ft=scss
+
+function! Gs()
+    execute ':Gwrite'
+    execute ':Gstatus'
+endfunction
+
+
+function! NT()
+    execute ':NERDTreeToggle'
+    set relativenumber number
+    au FocusLost * :set norelativenumber number
+    au FocusGained * :set relativenumber
+endfunction
+autocmd! bufwritepost * execute ":StripWhitespace"
+if(expand('%:p') == $HOME.'/.vimrc')
+    autocmd! bufwritepost .vimrc source ~/.vimrc " vimrc文件修改之后自动加载。 linux。"
+endif
+
+autocmd! VimLeave * silent !rm -f ~/.vim/view/* " vimrc文件修改之后自动加载。 linux。"
+
+
+
+if(expand('%:p') == $HOME.'/.vim/bundles.vim')
+    autocmd! bufwritepost ~/.vim/bundles.vim source ~/.vimrc " vimrc文件修改之后自动加载。 linux。"
+endif
+function! CloseTab()
+    execute ':MBEbd'
+    execute ':VimuxCloseRunner'
+    "execute ':Gstatus'
+endfunction
+
+
+" }}}  ----------    command  remap ---------------------
+
 "/*{{{  heisoo push cmd */
 "sync file funciton
 function! g:Sync(arg)
@@ -361,6 +447,8 @@ function! g:Sync(arg)
     silent !clear
     silent w
     let s:from = expand('%:p')
+    let s:path = 'cd '. expand('%:p:h').';'
+
 
     if a:arg == 'file'
         let s:cmd = 'hs_sync -file '. s:from
@@ -371,8 +459,13 @@ function! g:Sync(arg)
         let s:cmd = 'hs_sync -all '. s:from
         echo s:cmd
     endif
+
+    if a:arg == 'build'
+        let s:cmd = 'hs_sync -build '. s:from
+        echo s:cmd
+   endif
     "execute ":ConqueTermTab ". s:cmd
-    call VimuxRunCommand(s:cmd)
+    call VimuxRunCommand(s:path . s:cmd)
     execute ":redraw!"
     set background=dark
     colorscheme solarized
@@ -410,88 +503,54 @@ function! CtrlPro()
     let g:ctrlp_cmd = ':CtrlP '.s:out
     execute g:ctrlp_cmd
 endfunction
-"/*}}}*/
 
+function! GetCodeLine()
 
+    let start = line('.')
+    let end = search(";$") - 1
+    let lines = getline(start, end)
+    echo lines
 
-" ========= Commands ========
+"    let cur_line = getline('.')
 
-let g:netrw_liststyle=3 " Show nested tree mode when viewing directories
+    " locate the start of the word
+    let start = col('.') - 1
+    while start > 0 && cur_line[start - 1] =~ '[^:,]'
+        let start -= 1
+    endwhile
 
-if filereadable(glob("~/.vimrc.local"))
-    source ~/.vimrc.local
-endif
+    " lstrip()
+    while cur_line[start] =~ '[ ]'
+        let start += 1
+    endwhile
 
+    return start
+    " locate the start of the word
+    "while start > 0 && cur_line[start - 1] =~ '[^:,]'
+    "    let start -= 1
+    "endwhile
 
-"/*{{{* 代码折叠/
+"    let l:tempfile = expand('%:p:h') . '/' . localtime() . expand('%:t')
+"    try
+"        call writefile(l:buf, l:tempfile)
+"    catch /^Vim\%((\a\+)\)\=:E482/
+"        " TODO: handle exception
+"    endtry
 "
-set foldenable
-" 折叠方法
-" manual    手工折叠
-" indent    使用缩进表示折叠
-" expr      使用表达式定义折叠
-" syntax    使用语法定义折叠
-" diff      对没有更改的文本进行折叠
-" marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
-set foldmethod=marker
-set foldcolumn=0            " 设置折叠区域的宽度"
-au BufWinEnter * silent! loadview
-au BufWinLeave * silent! mkview
+"    " TODO: call external program here
+"
+"    call delete(l:tempfile)
 
-"set foldlevel=1
-" 代码折叠自定义快捷键
-let g:FoldMethod = 0
-map <leader>z :call ToggleFold()<cr>
-fun! ToggleFold()
-    if g:FoldMethod == 0
-        exe "normal! zM"
-        let g:FoldMethod = 1
-    else
-        exe "normal! zR"
-        let g:FoldMethod = 0
-    endif
-endfun
+
+endfunction
 "/*}}}*/
-" {{{  ----------    command  remap ---------------------
-
-
-" Language support
-autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 textwidth=80
-autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd BufNewFile,BufRead jquery.*.js set ft=javascript syntax=jquery
-autocmd BufNewFile,BufRead *.md setlocal ft=markdown
-autocmd BufNewFile,BufRead *.scss set ft=scss
-
-function! Gs()
-    execute ':Gwrite'
-    execute ':Gstatus'
-endfunction
-
-
-function! NT()
-    execute ':NERDTreeToggle'
-    set relativenumber number
-    au FocusLost * :set norelativenumber number
-    au FocusGained * :set relativenumber
-endfunction
-autocmd! bufwritepost * execute ":StripWhitespace"
-if(expand('%:p') == $HOME.'/.vimrc')
-    autocmd! bufwritepost .vimrc source ~/.vimrc " vimrc文件修改之后自动加载。 linux。"
-endif
-if(expand('%:p') == $HOME.'/.vim/bundles.vim')
-    autocmd! bufwritepost ~/.vim/bundles.vim source ~/.vimrc " vimrc文件修改之后自动加载。 linux。"
-endif
-
-" }}}  ----------    command  remap ---------------------
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" map
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" map"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-f> <right>
 cnoremap <C-b> <left>
-noremap <silent><leader>/ :nohls<CR>  "  <<<------"
+noremap <silent><leader>/ :nohls<CR>
 nnoremap U <C-r>
 
 " Yank text to the OS X clipboard" 将文本复制到OS X剪贴板中
@@ -508,7 +567,8 @@ nnoremap <leader>w :w<CR>
 "nmap <silent><leader>r :!pbpaste <cr>
 nmap <silent><leader>sf :call g:Sync('file')<cr>
 nmap <silent><leader>sa :call g:Sync('all') <cr>
-nmap <silent><leader>x :VimuxCloseRunner <cr>
+nmap <silent><leader>sb :call g:Sync('build') <cr>
+nmap <silent><leader>x :call CloseTab() <cr>
 nnoremap <Leader>p :CtrlPMRU<CR>
 nnoremap <leader>dump :TagbarToggle<CR>
 inoremap jj <ESC>
@@ -527,4 +587,4 @@ noremap <leader>bd :MBEbd<CR>
 vmap <Leader>a <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
 " autocmd! VimEnter *  :silent !~/.vim/phpctags -R *
-"rm -rf ~/.vim/view/*
+

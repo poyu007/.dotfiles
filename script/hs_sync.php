@@ -37,8 +37,17 @@ if($argv[1] == '-all'){
 }else if($argv[1] == '-file'){
     $file = is_file($argv[2]) ? $argv[2] : e('file not exist','red');
     proj_file($file);
+}else if($argv[1] == '-build'){
+    $file= $argv[2];
+    $info = pathinfo($file);
+    if($info['extension'] == 'icf' && is_file($file)) {
+        proj_file($file);
+        $base = $info['basename'];
+        passthru('Qe "bee -b '.$base.';bee -u '.$base.'"');
+    }else{
+        e('not icf or file not exist','red');
+    }
 }else if($argv[1] == '-tag'){
-
     $cmd ='cd '.PCONF_PATH.';'.PHPTAGS.' -R */*/*;mv tags ~/.vim/tags;';
     ($cmd);
 
