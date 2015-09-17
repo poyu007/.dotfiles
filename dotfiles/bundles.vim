@@ -197,8 +197,9 @@ Bundle 'Shougo/neocomplete'
 "Bundle 'Valloric/YouCompleteMe'
 Bundle 'Shougo/vimproc'
 Bundle 'Shougo/unite.vim'
-Bundle 'm2mdas/phpcomplete-extended'
-
+Bundle 'dericofilho/vim-phpfmt'
+Bundle 'othree/html5.vim'
+Bundle 'phpcomplete-extended'
 
 " snippt package
 Bundle 'Shougo/neosnippet'

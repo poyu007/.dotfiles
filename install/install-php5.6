@@ -1,0 +1,8 @@
+# 更新配置
+brew update
+
+#去掉PHP55的link
+brew unlink php55
+
+#安装PHP56
+brew install php56 -with-homebrew-apxs  --without-apache --with-debug --with-fpm --with-gmp --with-homebrew-curl --with-homebrew-libxslt --with-homebrew-openssl --with-imap --with-libmysql --with-tidy --without-mysql

@@ -504,6 +504,8 @@ function! CtrlPro()
     execute g:ctrlp_cmd
 endfunction
 
+
+
 function! GetCodeLine()
 
     let start = line('.')
@@ -543,7 +545,30 @@ function! GetCodeLine()
 
 
 endfunction
+
+
+
 "/*}}}*/
+fun! Formation()
+    let s:from = expand('%:t')
+    if( stridx(s:from, ".php") != '-1')
+        call PhpFmtFixFile()
+        silent w
+
+elseif( stridx(s:from, ".inc") != '-1')
+        call PhpFmtFixFile()
+        silent w
+elseif( stridx(s:from, ".htm") != '-1')
+        exe ":normal gg=G"
+        call PhpFmtFixFile()
+        silent w
+        exe "normal! \<c-o>"
+        exe "normal! \<c-o>"
+
+    endif
+endfun
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 cnoremap <C-a> <Home>
@@ -563,7 +588,7 @@ vmap <C-c> :w !pbcopy<CR><CR>
 nmap <c-p> :call CtrlPro()<cr>
 map <silent> <leader>evi :e ~/.vimrc<cr>
 map <leader>q :wq<cr>
-nnoremap <leader>w :w<CR>
+nnoremap <leader>w :call Formation()<CR>
 "nmap <silent><leader>r :!pbpaste <cr>
 nmap <silent><leader>sf :call g:Sync('file')<cr>
 nmap <silent><leader>sa :call g:Sync('all') <cr>
