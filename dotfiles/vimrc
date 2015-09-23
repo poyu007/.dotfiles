@@ -414,7 +414,6 @@ function! NT()
     au FocusLost * :set norelativenumber number
     au FocusGained * :set relativenumber
 endfunction
-autocmd! bufwritepost * execute ":StripWhitespace"
 if(expand('%:p') == $HOME.'/.vimrc')
     autocmd! bufwritepost .vimrc source ~/.vimrc " vimrc文件修改之后自动加载。 linux。"
 endif
@@ -551,17 +550,17 @@ endfunction
 "/*}}}*/
 fun! Formation()
     let s:from = expand('%:t')
+    execute ":StripWhitespace"
+
+    silent w
     if( stridx(s:from, ".php") != '-1')
         call PhpFmtFixFile()
-        silent w
 
 elseif( stridx(s:from, ".inc") != '-1')
         call PhpFmtFixFile()
-        silent w
 elseif( stridx(s:from, ".htm") != '-1')
         exe ":normal gg=G"
         call PhpFmtFixFile()
-        silent w
         exe "normal! \<c-o>"
         exe "normal! \<c-o>"
 
