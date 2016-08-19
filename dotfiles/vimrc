@@ -213,7 +213,6 @@ let g:ackprg = 'ag --nogroup --nocolor --column --ignore-dir="*tag"'
 
 
 
-
 "{{{ ----------------- neocomplete start----
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
@@ -463,6 +462,7 @@ function! g:Sync(arg)
         let s:cmd = 'hs_sync -build '. s:from
         echo s:cmd
    endif
+
     "execute ":ConqueTermTab ". s:cmd
     call VimuxRunCommand(s:path . s:cmd)
     execute ":redraw!"
@@ -551,6 +551,10 @@ endfunction
 fun! Formation()
     let s:from = expand('%:t')
     execute ":StripWhitespace"
+    let s:dir= expand('%:p')
+    let s:cmd = 'silent !hs_sync -tag '. s:dir. ' &'
+    let s:output = system(s:cmd)
+    "execute ":redraw!"
 
     silent w
     if( stridx(s:from, ".php") != '-1')
@@ -567,6 +571,11 @@ elseif( stridx(s:from, ".htm") != '-1')
     endif
 endfun
 
+let g:phpcomplete_mappings = {
+   \ 'jump_to_def': '<C-]>',
+   \ 'jump_to_def_split': '<C-W><C-]>',
+   \ 'jump_to_def_vsplit': '<C-W><C-\>',
+   \}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map"""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -592,6 +601,7 @@ nnoremap <leader>w :call Formation()<CR>
 nmap <silent><leader>sf :call g:Sync('file')<cr>
 nmap <silent><leader>sa :call g:Sync('all') <cr>
 nmap <silent><leader>sb :call g:Sync('build') <cr>
+nmap <silent><leader>st :call g:Sync('tag') <cr>
 nmap <silent><leader>x :call CloseTab() <cr>
 nnoremap <Leader>p :CtrlPMRU<CR>
 nnoremap <leader>dump :TagbarToggle<CR>
@@ -610,5 +620,6 @@ noremap <leader>bp :MBEbp<CR>
 noremap <leader>bd :MBEbd<CR>
 vmap <Leader>a <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
+inoremap <leader><leader>t this-><C-x><C-o>
 " autocmd! VimEnter *  :silent !~/.vim/phpctags -R *
 
