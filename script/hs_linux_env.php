@@ -73,7 +73,7 @@ if ($yorn == '1') {
 	e('please type 1 or 2 ', 'red');
 }
 
-e("Process vim setup  ! [y/n] !");
+e("Process vim plugin setup! [y/n] !");
 $yorn = read_stdin();
 if ($yorn == 'y') {
 	$cmds = get_vim_cmd();
