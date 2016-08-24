@@ -9,6 +9,8 @@
 
 # 采用 vimux （ vim + tmux ) 来
     *  采用 https://github.com/benmills/vimux 来当作 ，debug windows 
+    *  Bundle 'benmills/vimux'
+
 # .vimrc
 ```
 function! g:Sync(arg)
